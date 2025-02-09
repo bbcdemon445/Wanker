@@ -131,12 +131,12 @@ local Library = {}; do
 
     do
         local Objects = {};
-        Objects["big_paste_omg"] = Instance.new("ScreenGui")
-        Objects["big_paste_omg"].ResetOnSpawn = false
-        Objects["big_paste_omg"].Name = "big_paste_omg"
-        Objects["big_paste_omg"].Parent = gethui and gethui() or game:GetService("CoreGui");
-        Objects["big_paste_omg"].ZIndexBehavior = Enum.ZIndexBehavior.Global;
-        Library.Holder = Objects["big_paste_omg"];
+        Objects["NIGGGEEEEEEERRRRRRRRRRRR"] = Instance.new("ScreenGui")
+        Objects["NIGGGEEEEEEERRRRRRRRRRRR"].ResetOnSpawn = false
+        Objects["NIGGGEEEEEEERRRRRRRRRRRR"].Name = "NIGGGEEEEEEERRRRRRRRRRRR"
+        Objects["NIGGGEEEEEEERRRRRRRRRRRR"].Parent = gethui and gethui() or game:GetService("CoreGui");
+        Objects["NIGGGEEEEEEERRRRRRRRRRRR"].ZIndexBehavior = Enum.ZIndexBehavior.Global;
+        Library.Holder = Objects["NIGGGEEEEEEERRRRRRRRRRRR"];
     end;
 
     local fonts = {};
@@ -463,7 +463,7 @@ local Library = {}; do
         Objects["text"].Name = "text"
         Objects["text"].Size = UDim2.new(0, 0, 1, 0)
         Objects["text"].BackgroundTransparency = 1
-        Objects["text"].Position = UDim2.new(0, 28, 0, 0)
+        Objects["text"].Position = UDim2.new(0, 0, 0, 0)
         Objects["text"].BorderSizePixel = 0
         Objects["text"].AutomaticSize = Enum.AutomaticSize.X
         Objects["text"].TextSize = 12

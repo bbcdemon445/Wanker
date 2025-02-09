@@ -8,7 +8,7 @@ local Library = {}; do
         Border = Color3.fromRGB(35,35,35);
         Risky = Color3.fromRGB(255,0,0);
 
-        FolderName = "Celestial";
+        FolderName = "project x";
 
         Key = Enum.KeyCode.End;
         Open = true;
@@ -52,26 +52,6 @@ local Library = {}; do
         end;
 
         -- Files
-
-        if not isfile(Library.FolderName .. '/Utilities/Hue.png') then
-            writefile(Library.FolderName .. '/Utilities/Hue.png', game:HttpGet("https://raw.githubusercontent.com/sametexe001/celestial.club/refs/heads/main/images/hue.png"));
-        end;
-
-        if not isfile(Library.FolderName .. '/Utilities/Saturation.png') then
-            writefile(Library.FolderName .. '/Utilities/Saturation.png', game:HttpGet("https://raw.githubusercontent.com/sametexe001/celestial.club/refs/heads/main/images/saturation.png"));
-        end;
-
-        if not isfile(Library.FolderName .. '/Utilities/Value.png') then
-            writefile(Library.FolderName .. '/Utilities/Value.png', game:HttpGet("https://raw.githubusercontent.com/sametexe001/celestial.club/refs/heads/main/images/value.png"));
-        end;
-
-        if not isfile(Library.FolderName .. '/Utilities/Shadow.png') then
-            writefile(Library.FolderName .. '/Utilities/Shadow.png', game:HttpGet("https://raw.githubusercontent.com/sametexe001/celestial.club/refs/heads/main/images/shadow.png"));
-        end;
-
-        if not isfile(Library.FolderName .. '/Utilities/Logo.png') then
-            writefile(Library.FolderName .. '/Utilities/Logo.png', game:HttpGet("https://raw.githubusercontent.com/sametexe001/celestial.club/refs/heads/main/images/celestiallogo-removebg-preview.png"));
-        end;
     end;
 
     local Keys                = {
@@ -467,24 +447,6 @@ local Library = {}; do
             Color = "Border";
         });
 
-        Objects["logo"] = Instance.new("ImageLabel")
-        Objects["logo"].ScaleType = Enum.ScaleType.Fit
-        Objects["logo"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-        Objects["logo"].AnchorPoint = Vector2.new(0, 0.5)
-        Objects["logo"].Image = getcustomasset(Library.FolderName .. "/Utilities/Logo.png");
-        Objects["logo"].BackgroundTransparency = 1
-        Objects["logo"].Position = UDim2.new(0, -5, 0.5, -1)
-        Objects["logo"].Name = "logo"
-        Objects["logo"].Size = UDim2.new(0, 38, 0, 47)
-        Objects["logo"].BorderSizePixel = 0
-        Objects["logo"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Objects["logo"].Parent = Objects["watermark"]
-        Objects["logo"].ImageColor3 = Library.Accent;
-
-        Library:AddToRegistry(Objects["logo"], {
-            ImageColor3 = "Accent";
-        });
-
         Objects["UIGradient"] = Instance.new("UIGradient")
         Objects["UIGradient"].Rotation = 90
         Objects["UIGradient"].Color = ColorSequence.new{
@@ -526,28 +488,6 @@ local Library = {}; do
 
         Library:AddToRegistry(Objects["accent"], {
             BackgroundColor3 = "Accent";
-        });
-
-        Objects["shadow"] = Instance.new("ImageLabel")
-        Objects["shadow"].ImageColor3 = Library.Accent
-        Objects["shadow"].ScaleType = Enum.ScaleType.Slice
-        Objects["shadow"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-        Objects["shadow"].Name = "shadow"
-        Objects["shadow"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Objects["shadow"].Size = UDim2.new(1, 25, 1, 25)
-        Objects["shadow"].AnchorPoint = Vector2.new(0.5, 0.5)
-        Objects["shadow"].Image = getcustomasset(Library.FolderName .. "/Utilities/Shadow.png");
-        Objects["shadow"].BackgroundTransparency = 1
-        Objects["shadow"].Position = UDim2.new(0.5, 0, 0.5, 0)
-        Objects["shadow"].SliceScale = 0.75
-        Objects["shadow"].ZIndex = -1
-        Objects["shadow"].BorderSizePixel = 0
-        Objects["shadow"].SliceCenter = Rect.new(Vector2.new(112, 112), Vector2.new(147, 147))
-        Objects["shadow"].Parent = Objects["watermark"]
-        Objects["shadow"].Visible = true;
-
-        Library:AddToRegistry(Objects["shadow"], {
-            ImageColor3 = "Accent";
         });
 
         function Watermark:SetVisiblity(Boolean)
@@ -829,31 +769,8 @@ local Library = {}; do
         Objects["UIStroke3"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         Objects["UIStroke3"].Parent = Objects["main"]
 
-        
         Library:AddToRegistry(Objects["UIStroke3"], {
             Color = "Accent";
-        })
-
-        Objects["shadow"] = Instance.new("ImageLabel")
-        Objects["shadow"].ImageColor3 = Library.Accent
-        Objects["shadow"].ScaleType = Enum.ScaleType.Slice
-        Objects["shadow"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-        Objects["shadow"].Name = "shadow"
-        Objects["shadow"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Objects["shadow"].Size = UDim2.new(1, 75, 1, 75)
-        Objects["shadow"].AnchorPoint = Vector2.new(0.5, 0.5)
-        Objects["shadow"].Image = getcustomasset(Library.FolderName .. "/Utilities/Shadow.png");
-        Objects["shadow"].BackgroundTransparency = 1
-        Objects["shadow"].Position = UDim2.new(0.5, 0, 0.5, 0)
-        Objects["shadow"].SliceScale = 0.75
-        Objects["shadow"].ZIndex = -1
-        Objects["shadow"].BorderSizePixel = 0
-        Objects["shadow"].SliceCenter = Rect.new(Vector2.new(112, 112), Vector2.new(147, 147))
-        Objects["shadow"].Parent = Objects["main"]
-        Objects["shadow"].Visible = true;
-
-        Library:AddToRegistry(Objects["shadow"], {
-            ImageColor3 = "Accent";
         })
 
         Objects["innerline"] = Instance.new("Frame")
@@ -1371,7 +1288,7 @@ local Library = {}; do
             SubObjects["palette"].Parent = SubObjects["pickerwindow"]
     
             SubObjects["sat"] = Instance.new("ImageLabel")
-            SubObjects["sat"].Image = getcustomasset(Library.FolderName .. "/Utilities/Saturation.png");
+            SubObjects["sat"].Image = "rbxassetid://130624743341203";
             SubObjects["sat"].BackgroundTransparency = 1
             SubObjects["sat"].Name = "sat"
             SubObjects["sat"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1379,16 +1296,6 @@ local Library = {}; do
             SubObjects["sat"].BorderSizePixel = 0
             SubObjects["sat"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             SubObjects["sat"].Parent = SubObjects["palette"]
-    
-            SubObjects["val"] = Instance.new("ImageLabel")
-            SubObjects["val"].Image = getcustomasset(Library.FolderName .. "/Utilities/Value.png");
-            SubObjects["val"].BackgroundTransparency = 1
-            SubObjects["val"].Name = "val"
-            SubObjects["val"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-            SubObjects["val"].Size = UDim2.new(1, 0, 1, 0)
-            SubObjects["val"].BorderSizePixel = 0
-            SubObjects["val"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            SubObjects["val"].Parent = SubObjects["palette"]
     
             SubObjects["UIStroke4"] = Instance.new("UIStroke")
             SubObjects["UIStroke4"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -1419,18 +1326,6 @@ local Library = {}; do
             Library:AddToRegistry(SubObjects["UIStroke5"], {
                 Color = "Border";
             })
-    
-            SubObjects["hue"] = Instance.new("ImageButton")
-            SubObjects["hue"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-            SubObjects["hue"].AutoButtonColor = false
-            SubObjects["hue"].AnchorPoint = Vector2.new(1, 0)
-            SubObjects["hue"].Image = getcustomasset(Library.FolderName .. "/Utilities/Hue.png");
-            SubObjects["hue"].Name = "hue"
-            SubObjects["hue"].Position = UDim2.new(1, -8, 0, 7)
-            SubObjects["hue"].Size = UDim2.new(0, 17, 0, 150)
-            SubObjects["hue"].BorderSizePixel = 0
-            SubObjects["hue"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            SubObjects["hue"].Parent = SubObjects["pickerwindow"]
     
             SubObjects["UIStroke6"] = Instance.new("UIStroke")
             SubObjects["UIStroke6"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border

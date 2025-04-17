@@ -6,7 +6,7 @@ if isfile("menu_plex.font") then
 	delfile("menu_plex.font")
 end
 
-writefile("ProggyClean.ttf", game:HttpGet("https://github.com/ocornut/imgui/raw/refs/heads/master/misc/fonts/ProggyTiny.ttf"))
+writefile("ProggyClean.ttf", game:HttpGet("https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/ProggyClean.ttf"))
 
 -- // Custom Font
 do

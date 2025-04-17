@@ -3931,8 +3931,8 @@ do
 						local PlayerTeam = Instance.new("TextLabel")
 						PlayerTeam.Name = "PlayerTeam"
 						PlayerTeam.FontFace = realfont
-						PlayerTeam.Text = option:FindFirstChild("Team") and tostring(option.Team.Name) or "No Team"
-						PlayerTeam.TextColor3 = option:FindFirstChild("Team") and option.TeamColor.Color or Color3.fromRGB(255,255,255)
+						PlayerTeam.Text = option.Team and tostring(option.Team.Name) or "No Team"
+						PlayerTeam.TextColor3 = option.Team and option.TeamColor.Color or Color3.fromRGB(255,255,255)
 						PlayerTeam.TextSize = Library.FSize
 						PlayerTeam.TextStrokeTransparency = 0
 						PlayerTeam.TextXAlignment = Enum.TextXAlignment.Left

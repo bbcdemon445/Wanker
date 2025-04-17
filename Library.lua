@@ -2509,6 +2509,8 @@ do
 			Value.TextSize = Library.FSize
 			Value.TextStrokeTransparency = 0
 			Value.TextXAlignment = Enum.TextXAlignment.Left
+			Value.TextWrapped = false
+			Value.TextTruncate = Enum.TextTruncate.AtEnd
 			Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Value.BackgroundTransparency = 1
 			Value.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2746,6 +2748,7 @@ do
 					end
 
 					Value.Text = #chosen == 0 and "" or table.concat(textchosen, ", ") .. (cutobject and ", ..." or "")
+					Value.
 
 					Library.Flags[Dropdown.Flag] = chosen
 					Dropdown.Callback(chosen)

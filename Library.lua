@@ -1,3 +1,7 @@
+-- This has not been tested on any other executors besides krampus (only tested in roblox studio)
+-- I cannot guarantee everything works (ex. custom font which i removed)
+-- Made by portal | example at bottom
+
 if isfile("menu_plex.font") then
 	delfile("menu_plex.font")
 end
@@ -2506,7 +2510,7 @@ do
 			Value.TextStrokeTransparency = 0
 			Value.TextXAlignment = Enum.TextXAlignment.Left
 			Value.TextWrapped = false
-			Value.TextTruncate = Enum.TextTruncate.AtEnd			
+			Value.TextTruncate = Enum.TextTruncate.AtEnd
 			Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Value.BackgroundTransparency = 1
 			Value.BorderColor3 = Color3.fromRGB(0, 0, 0)

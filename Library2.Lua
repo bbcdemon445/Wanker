@@ -972,7 +972,7 @@ do
 			Title2.BackgroundTransparency = 1
 			Title2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Title2.BorderSizePixel = 0
-			Title2.Position = UDim2.new(0, -8, 0, 3)
+			Title2.Position = UDim2.new(0, -4, 0, 3)
 			Title2.Size = UDim2.new(1, 0, 0, 16)
 			Title2.Parent = Inline
 

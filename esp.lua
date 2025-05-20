@@ -1,82 +1,122 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Camera = workspace.CurrentCamera
-
 local CoreGui = game:GetService("CoreGui")
-local DrawingFolder = Instance.new("Folder")
-DrawingFolder.Name = "ESP_Drawings"
-DrawingFolder.Parent = CoreGui
 
 local ESP = {
 	Enabled = true,
 	Settings = {
-		TextColor = Color3.fromRGB(255, 255, 255),
-		OutlineColor = Color3.fromRGB(0, 0, 0),
-		BoxColor = Color3.fromRGB(255, 255, 255),
-		HealthBarColor = Color3.fromRGB(0, 255, 0),
+		TextColor = Color3.new(1, 1, 1),
+		BoxColor = Color3.new(1, 1, 1),
+		HealthBarColor = Color3.new(0, 1, 0),
 		ShowBoxes = true,
 		ShowNames = true,
 		ShowDistance = true,
 		ShowHealthBar = true,
-		NamePosition = "TopLeft", -- Options: TopLeft, TopRight, Top, BottomLeft, BottomRight, Bottom
-		DistancePosition = "BottomLeft", -- Same options
+		NamePosition = "TopLeft",
+		DistancePosition = "BottomLeft",
 		MaxDistance = math.huge
 	},
 	Drawings = {}
 }
 
-local function CreateDrawing(Type: string, Properties: any)
-	local Obj = Drawing.new(Type)
-	for Prop, Val in next, Properties do
-		Obj[Prop] = Val
-	end
-	return Obj
+local Folder = Instance.new("Folder")
+Folder.Name = "ESP"
+Folder.Parent = CoreGui
+
+local function CreateLabel(Name)
+	local Label = Instance.new("TextLabel")
+	Label.Name = Name
+	Label.BackgroundTransparency = 1
+	Label.BorderSizePixel = 0
+	Label.TextSize = 13
+	Label.Font = Enum.Font.SourceSans
+	Label.TextXAlignment = Enum.TextXAlignment.Left
+	Label.TextYAlignment = Enum.TextYAlignment.Top
+	Label.Size = UDim2.new(0, 200, 0, 50)
+	Label.ZIndex = 3
+	Label.Parent = Folder
+	return Label
 end
 
-local function GetPositionOnScreen(WorldPos: Vector3)
-	local ScreenPos, OnScreen = Camera:WorldToViewportPoint(WorldPos)
+local function CreateBoxFrame(Name)
+	local Frame = Instance.new("Frame")
+	Frame.Name = Name
+	Frame.BorderSizePixel = 1
+	Frame.BackgroundTransparency = 1
+	Frame.ZIndex = 2
+	Frame.Size = UDim2.new()
+	Frame.Position = UDim2.new()
+	Frame.BorderColor3 = Color3.new(1, 1, 1)
+	Frame.Parent = Folder
+	return Frame
+end
+
+local function CreateHealthBar(Name)
+	local Bar = Instance.new("Frame")
+	Bar.Name = Name
+	Bar.BackgroundColor3 = Color3.new(0, 1, 0)
+	Bar.BorderSizePixel = 0
+	Bar.ZIndex = 3
+	Bar.Size = UDim2.new()
+	Bar.Position = UDim2.new()
+	Bar.Parent = Folder
+	return Bar
+end
+
+local function GetScreenPos(Position)
+	local ScreenPos, OnScreen = Camera:WorldToViewportPoint(Position)
 	return Vector2.new(ScreenPos.X, ScreenPos.Y), OnScreen, ScreenPos.Z
 end
 
-local function GetBoxCorners(HeadPos: Vector3, RootPos: Vector3)
-	local Height = (RootPos - HeadPos).Magnitude
+local function GetBoxCorners(Head, Root)
+	local Height = (Root - Head).Magnitude
 	local Width = Height / 2.5
-	local TopLeft = Vector3.new(RootPos.X - Width, HeadPos.Y, RootPos.Z)
-	local BottomRight = Vector3.new(RootPos.X + Width, RootPos.Y, RootPos.Z)
+	local TopLeft = Vector3.new(Root.X - Width, Head.Y, Root.Z)
+	local BottomRight = Vector3.new(Root.X + Width, Root.Y, Root.Z)
 	return TopLeft, BottomRight
 end
 
-local function UpdateESP(Player: Player, Character: Model)
+local function GetOffset(Pos, Width, Height, OffsetY)
+	if Pos == "TopLeft" then
+		return Vector2.new(-Width / 2, -OffsetY)
+	elseif Pos == "TopRight" then
+		return Vector2.new(Width / 2, -OffsetY)
+	elseif Pos == "Top" then
+		return Vector2.new(0, -OffsetY)
+	elseif Pos == "BottomLeft" then
+		return Vector2.new(-Width / 2, Height + OffsetY)
+	elseif Pos == "BottomRight" then
+		return Vector2.new(Width / 2, Height + OffsetY)
+	elseif Pos == "Bottom" then
+		return Vector2.new(0, Height + OffsetY)
+	end
+	return Vector2.zero
+end
+
+local function UpdateESP(Player, Character)
 	local Head = Character:FindFirstChild("Head")
-	local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+	local Root = Character:FindFirstChild("HumanoidRootPart")
 	local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+	if not (Head and Root and Humanoid and Humanoid.Health > 0) then return end
 
-	if not (Head and HumanoidRootPart and Humanoid and Humanoid.Health > 0) then
-		return
-	end
+	local ScreenPos, OnScreen, Z = GetScreenPos(Root.Position)
+	if not OnScreen or Z > ESP.Settings.MaxDistance then return end
 
-	local ScreenPos, OnScreen, Z = GetPositionOnScreen(HumanoidRootPart.Position)
-	if not OnScreen or Z > ESP.Settings.MaxDistance then
-		return
-	end
+	local TopLeft, BottomRight = GetBoxCorners(Head.Position, Root.Position)
+	local TL, V1 = GetScreenPos(TopLeft)
+	local BR, V2 = GetScreenPos(BottomRight)
+	if not (V1 and V2) then return end
 
-	local TopLeftWorld, BottomRightWorld = GetBoxCorners(Head.Position, HumanoidRootPart.Position)
-	local TopLeftScreen, TLVisible = GetPositionOnScreen(TopLeftWorld)
-	local BottomRightScreen, BRVisible = GetPositionOnScreen(BottomRightWorld)
-
-	if not (TLVisible and BRVisible) then
-		return
-	end
-
-	local Width = BottomRightScreen.X - TopLeftScreen.X
-	local Height = BottomRightScreen.Y - TopLeftScreen.Y
+	local Width = BR.X - TL.X
+	local Height = BR.Y - TL.Y
 
 	if not ESP.Drawings[Player] then
 		ESP.Drawings[Player] = {
-			Box = CreateDrawing("Square", {Thickness = 1, Filled = false, ZIndex = 2}),
-			Name = CreateDrawing("Text", {Center = false, Outline = true, Size = 13, Font = 2, ZIndex = 3}),
-			Distance = CreateDrawing("Text", {Center = false, Outline = true, Size = 13, Font = 2, ZIndex = 3}),
-			HealthBar = CreateDrawing("Line", {Thickness = 2, ZIndex = 3})
+			Box = CreateBoxFrame(Player.Name .. "_Box"),
+			Name = CreateLabel(Player.Name .. "_Name"),
+			Distance = CreateLabel(Player.Name .. "_Distance"),
+			HealthBar = CreateHealthBar(Player.Name .. "_Health")
 		}
 	end
 
@@ -84,58 +124,40 @@ local function UpdateESP(Player: Player, Character: Model)
 
 	if ESP.Settings.ShowBoxes then
 		D.Box.Visible = true
-		D.Box.Color = ESP.Settings.BoxColor
-		D.Box.Position = TopLeftScreen
-		D.Box.Size = Vector2.new(Width, Height)
+		D.Box.Position = UDim2.fromOffset(TL.X, TL.Y)
+		D.Box.Size = UDim2.fromOffset(Width, Height)
+		D.Box.BorderColor3 = ESP.Settings.BoxColor
 	else
 		D.Box.Visible = false
 	end
 
 	if ESP.Settings.ShowNames then
-		local Pos = ESP.Settings.NamePosition
-		local Offset = Vector2.new(0, -15)
-		if Pos == "TopLeft" then Offset = Vector2.new(-Width / 2, -15)
-		elseif Pos == "TopRight" then Offset = Vector2.new(Width / 2, -15)
-		elseif Pos == "Top" then Offset = Vector2.new(0, -15)
-		elseif Pos == "BottomLeft" then Offset = Vector2.new(-Width / 2, Height + 2)
-		elseif Pos == "BottomRight" then Offset = Vector2.new(Width / 2, Height + 2)
-		elseif Pos == "Bottom" then Offset = Vector2.new(0, Height + 2) end
-
+		local Offset = GetOffset(ESP.Settings.NamePosition, Width, Height, 15)
 		D.Name.Visible = true
-		D.Name.Position = TopLeftScreen + Offset
 		D.Name.Text = Player.Name
-		D.Name.Color = ESP.Settings.TextColor
+		D.Name.Position = UDim2.fromOffset(TL.X + Offset.X, TL.Y + Offset.Y)
+		D.Name.TextColor3 = ESP.Settings.TextColor
 	else
 		D.Name.Visible = false
 	end
 
 	if ESP.Settings.ShowDistance then
-		local DistPos = ESP.Settings.DistancePosition
-		local Offset = Vector2.new(0, Height + 15)
-		if DistPos == "TopLeft" then Offset = Vector2.new(-Width / 2, -30)
-		elseif DistPos == "TopRight" then Offset = Vector2.new(Width / 2, -30)
-		elseif DistPos == "Top" then Offset = Vector2.new(0, -30)
-		elseif DistPos == "BottomLeft" then Offset = Vector2.new(-Width / 2, Height + 15)
-		elseif DistPos == "BottomRight" then Offset = Vector2.new(Width / 2, Height + 15)
-		elseif DistPos == "Bottom" then Offset = Vector2.new(0, Height + 15) end
-
+		local Offset = GetOffset(ESP.Settings.DistancePosition, Width, Height, 30)
 		D.Distance.Visible = true
-		D.Distance.Position = TopLeftScreen + Offset
 		D.Distance.Text = tostring(math.floor(Z)) .. "m"
-		D.Distance.Color = ESP.Settings.TextColor
+		D.Distance.Position = UDim2.fromOffset(TL.X + Offset.X, TL.Y + Offset.Y)
+		D.Distance.TextColor3 = ESP.Settings.TextColor
 	else
 		D.Distance.Visible = false
 	end
 
 	if ESP.Settings.ShowHealthBar then
-		local HealthPercent = Humanoid.Health / Humanoid.MaxHealth
-		local BarHeight = Height * HealthPercent
-		local BarTop = Vector2.new(TopLeftScreen.X - 4, BottomRightScreen.Y - BarHeight)
-		local BarBottom = Vector2.new(TopLeftScreen.X - 4, BottomRightScreen.Y)
+		local H = math.clamp(Humanoid.Health / Humanoid.MaxHealth, 0, 1)
+		local BarHeight = Height * H
 		D.HealthBar.Visible = true
-		D.HealthBar.From = BarBottom
-		D.HealthBar.To = BarTop
-		D.HealthBar.Color = ESP.Settings.HealthBarColor
+		D.HealthBar.Position = UDim2.fromOffset(TL.X - 4, BR.Y - BarHeight)
+		D.HealthBar.Size = UDim2.fromOffset(2, BarHeight)
+		D.HealthBar.BackgroundColor3 = ESP.Settings.HealthBarColor
 	else
 		D.HealthBar.Visible = false
 	end
@@ -144,9 +166,24 @@ end
 RunService.RenderStepped:Connect(function()
 	if not ESP.Enabled then return end
 	for _, Player in next, Players:GetPlayers() do
-		if Player ~= Players.LocalPlayer and Player.Character then
-			UpdateESP(Player, Player.Character)
+		if Player ~= Players.LocalPlayer then
+			local Char = Player.Character
+			if Char then
+				UpdateESP(Player, Char)
+			end
 		end
+	end
+end)
+
+Players.PlayerRemoving:Connect(function(Player)
+	local D = ESP.Drawings[Player]
+	if D then
+		for _, V in next, D do
+			if typeof(V) == "Instance" then
+				V:Destroy()
+			end
+		end
+		ESP.Drawings[Player] = nil
 	end
 end)
 

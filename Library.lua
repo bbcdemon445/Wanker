@@ -1160,6 +1160,114 @@ do
 			return setmetatable(Window, Library)
 		end;
 		--
+		function Window:SpectatorsList()
+			local SpectatorsUI = setmetatable({List = {}}, {__index = Library})
+			Library.SpectatorsList = SpectatorsUI
+		
+			local ListFrame = Instance.new("Frame")
+			ListFrame.Name = "SpectatorsList"
+			ListFrame.AnchorPoint = Vector2.new(0, 0.5)
+			ListFrame.AutomaticSize = Enum.AutomaticSize.XY
+			ListFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			ListFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			ListFrame.Position = UDim2.new(0, 20, 0.5, 0)
+			ListFrame.Size = UDim2.new(0, 0, 0, 18)
+			ListFrame.Parent = ScreenGui
+			ListFrame.Visible = false
+		
+			local BackgroundGradient = Instance.new("UIGradient")
+			BackgroundGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(47, 47, 47)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(26, 26, 26)),
+			})
+			BackgroundGradient.Rotation = 90
+			BackgroundGradient.Parent = ListFrame
+		
+			local Stroke = Instance.new("UIStroke")
+			Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			Stroke.LineJoinMode = Enum.LineJoinMode.Miter
+			Stroke.Thickness = 2
+			Stroke.Transparency = 0.8
+			Stroke.Parent = ListFrame
+		
+			local TitleLabel = Instance.new("TextLabel")
+			TitleLabel.FontFace = realfont
+			TitleLabel.Text = "Spectators"
+			TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TitleLabel.TextSize = Library.FSize
+			TitleLabel.TextStrokeTransparency = 0
+			TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+			TitleLabel.BackgroundTransparency = 1
+			TitleLabel.Position = UDim2.new(0, 4, 0, 0)
+			TitleLabel.Size = UDim2.new(0, 100, 0, 20)
+			TitleLabel.Parent = ListFrame
+		
+			local Padding = Instance.new("UIPadding")
+			Padding.PaddingRight = UDim.new(0, 6)
+			Padding.Parent = ListFrame
+		
+			local AccentBar = Library:NewInstance("Frame", true)
+			AccentBar.Name = "Accent"
+			AccentBar.BackgroundColor3 = Library.Accent
+			AccentBar.BorderColor3 = Color3.fromRGB(20, 20, 20)
+			AccentBar.Size = UDim2.new(1, 6, 0, 2)
+		
+			local AccentGradient = Instance.new("UIGradient")
+			AccentGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(145, 145, 145)),
+			})
+			AccentGradient.Rotation = 90
+			AccentGradient.Parent = AccentBar
+		
+			AccentBar.Parent = ListFrame
+		
+			local ContentFrame = Instance.new("Frame")
+			ContentFrame.Name = "Content"
+			ContentFrame.AutomaticSize = Enum.AutomaticSize.XY
+			ContentFrame.BackgroundTransparency = 1
+			ContentFrame.Position = UDim2.new(0, 10, 0, 20)
+		
+			local ContentPadding = Instance.new("UIPadding")
+			ContentPadding.PaddingBottom = UDim.new(0, 5)
+			ContentPadding.PaddingRight = UDim.new(0, 5)
+			ContentPadding.Parent = ContentFrame
+		
+			local Layout = Instance.new("UIListLayout")
+			Layout.SortOrder = Enum.SortOrder.LayoutOrder
+			Layout.Parent = ContentFrame
+		
+			ContentFrame.Parent = ListFrame
+		
+			function SpectatorsUI:SetVisible(state)
+				ListFrame.Visible = state
+			end
+		
+			function SpectatorsUI:Update(list)
+				for _, child in next, ContentFrame:GetChildren() do
+					if child:IsA("TextLabel") then
+						child:Destroy()
+					end
+				end
+		
+				for _, player in next, list do
+					local label = Instance.new("TextLabel")
+					label.FontFace = realfont
+					label.Text = player.Name
+					label.TextColor3 = Color3.fromRGB(255, 255, 255)
+					label.TextSize = Library.FSize
+					label.TextStrokeTransparency = 0
+					label.TextXAlignment = Enum.TextXAlignment.Left
+					label.AutomaticSize = Enum.AutomaticSize.XY
+					label.BackgroundTransparency = 1
+					label.Size = UDim2.new(0, 100, 0, 20)
+					label.Parent = ContentFrame
+				end
+			end
+		
+			return SpectatorsUI
+		end
+		--
 		function Library:Page(Properties)
 			if not Properties then
 				Properties = {}

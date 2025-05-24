@@ -1245,7 +1245,7 @@ do
 			
 				task.spawn(function()
 					while true do
-						task.wait(0.5) -- update every half-second
+						task.wait()
 			
 						local Names = {}
 						for i, v in next, SpectatorTable do

@@ -1244,9 +1244,7 @@ do
 				local LastNames = {}
 			
 				task.spawn(function()
-					while true do
-						task.wait()
-			
+					game:GetService("RunService").RenderStepped:Connect(function()			
 						local Names = {}
 						for i, v in next, SpectatorTable do
 							table.insert(Names, v)

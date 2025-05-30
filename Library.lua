@@ -1,4 +1,3 @@
-
 -- This has not been tested on any other executors besides krampus (only tested in roblox studio)
 -- I cannot guarantee everything works (ex. custom font which i removed)
 -- Made by portal | example at bottom
@@ -1156,6 +1155,10 @@ do
 			function Window:UpdateTitle(str)
 				Title.Text = str
 			end
+
+			-- // Returns
+			return setmetatable(Window, Library)
+		end;
 		--
 		function Library:Page(Properties)
 			if not Properties then

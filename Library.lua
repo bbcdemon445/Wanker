@@ -2206,6 +2206,11 @@ do
 					SetState()
 				end
 			end
+
+			function Toggle:SetVisible(State)
+				NewToggle.Visible = State
+			end
+
 			Toggle.Set(Toggle.State)
 			Library.Flags[Toggle.Flag] = Toggle.State
 			Flags[Toggle.Flag] = Toggle.Set

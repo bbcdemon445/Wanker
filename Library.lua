@@ -2802,7 +2802,10 @@ do
 				Library.Flags[Dropdown.Flag] = chosen
 				Dropdown.Callback(chosen)
 			end
-
+			--
+			function Dropdown:SetVisible(bool)
+				NewList.Visible = bool
+			end
 			-- // Returning
 			if Dropdown.Max then
 				Flags[Dropdown.Flag] = set

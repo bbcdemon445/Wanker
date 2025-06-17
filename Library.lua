@@ -5,11 +5,11 @@
 local ConfigFolder = "Project X V3/Fonts"
 
 if not isfolder(ConfigFolder) then
-	makefolder(ConfigFolder)
+     makefolder(ConfigFolder)
 end
 
 if isfile(ConfigFolder .. "menu_plex.font") then
-	delfile(ConfigFolder .. "menu_plex.font")
+     delfile(ConfigFolder .. "menu_plex.font")
 end
 
 writefile(ConfigFolder .. "ProggyClean.ttf", game:HttpGet("https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/ProggyClean.ttf"))

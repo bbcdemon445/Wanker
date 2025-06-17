@@ -2,46 +2,60 @@
 -- I cannot guarantee everything works (ex. custom font which i removed)
 -- Made by portal | example at bottom
 
-if isfile("menu_plex.font") then
-	delfile("menu_plex.font")
+local ConfigFolder = "Project X V3/fonts/"
+
+if not isfolder("Project X V3") then
+    makefolder("Project X V3")
+end
+if not isfolder(ConfigFolder) then
+    makefolder(ConfigFolder)
 end
 
-writefile("ProggyClean.ttf", game:HttpGet("https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/ProggyClean.ttf"))
+if isfile(ConfigFolder .. "menu_plex.font") then
+    delfile(ConfigFolder .. "menu_plex.font")
+end
+
+writefile(ConfigFolder .. "ProggyClean.ttf", game:HttpGet("https://github.com/bbcdemon445/Wanker/raw/refs/heads/main/ProggyClean.ttf"))
 
 -- // Custom Font
 do
-	getsynasset = getcustomasset or getsynasset
-	Font = setreadonly(Font, false);
-	function Font:Register(Name, Weight, Style, Asset)
-		if not isfile(Name .. ".font") then
-			if not isfile(Asset.Id) then
-				writefile(Asset.Id, Asset.Font);
-			end;
-			--
-			local Data = {
-				name = Name,
-				faces = {{
-					name = "Regular",
-					weight = Weight,
-					style = Style,
-					assetId = getsynasset(Asset.Id);
-				}}
-			};
-			--
-			writefile(Name .. ".font", game:GetService("HttpService"):JSONEncode(Data));
-			return getsynasset(Name .. ".font");
-		else 
-			warn("Font already registered");
-		end;
-	end;
-	--
-	function Font:GetRegistry(Name)
-		if isfile(Name .. ".font") then
-			return getsynasset(Name .. ".font");
-		end;
-	end;
+    getsynasset = getcustomasset or getsynasset
+    Font = setreadonly(Font, false)
 
-	Font:Register("menu_plex", 400, "normal", {Id = "ProggyClean.ttf", Font = ""});
+    function Font:Register(Name, Weight, Style, Asset)
+        local fontPath = ConfigFolder .. Name .. ".font"
+        local assetPath = ConfigFolder .. Asset.Id
+	--
+        if not isfile(fontPath) then
+            if not isfile(assetPath) then
+                writefile(assetPath, Asset.Font)
+            end
+	    --
+            local Data = {
+                name = Name,
+                faces = {{
+                    name = "Regular",
+                    weight = Weight,
+                    style = Style,
+                    assetId = getsynasset(assetPath)
+                }}
+            }
+	    --
+            writefile(fontPath, game:GetService("HttpService"):JSONEncode(Data))
+            return getsynasset(fontPath)
+        else
+            warn("Font already registered")
+        end
+    end
+    --
+    function Font:GetRegistry(Name)
+        local fontPath = ConfigFolder .. Name .. ".font"
+        if isfile(fontPath) then
+            return getsynasset(fontPath)
+        end
+    end
+    --
+    Font:Register("menu_plex", 400, "normal", {Id = "ProggyClean.ttf", Font = ""})
 end
 
 local realfont = Font.new(Font:GetRegistry("menu_plex"))

@@ -2,7 +2,7 @@
 -- I cannot guarantee everything works (ex. custom font which i removed)
 -- Made by portal | example at bottom
 
-local ConfigFolder = "Project X V3/Fonts"
+local ConfigFolder = "Project X V3/Fonts/"
 
 if not isfolder(ConfigFolder) then
      makefolder(ConfigFolder)

@@ -1258,7 +1258,7 @@ do
 
 			Left.Parent = RealPage
 
-			local Right = Instance.new("Frame")
+			local Right = Instance.new("ScrollingFrame")
 			Right.Name = "Right"
 			Right.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Right.BackgroundTransparency = 1

@@ -324,9 +324,7 @@ do
 	-- // Colorpicker Element
 	do
 		function Library:NewPicker(name, default, defaultalpha, parent, count, flag, callback)
-			-- // Instances
 			local Icon = Instance.new("TextButton", parent)
-			--
 			Icon.Name = "Icon"
 			Icon.AnchorPoint = Vector2.new(0, 0.5)
 			Icon.BackgroundColor3 = default
@@ -340,7 +338,7 @@ do
 			Icon.Size = UDim2.new(0, 22, 0, 10)
 			Icon.Text = ""
 			Icon.AutoButtonColor = false
-
+	
 			local IconInline = Instance.new("Frame")
 			IconInline.Name = "IconInline"
 			IconInline.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -350,7 +348,7 @@ do
 			IconInline.Position = UDim2.new(0, 2, 0, 2)
 			IconInline.Size = UDim2.new(1, -4, 1, -4)
 			IconInline.Parent = Icon
-
+	
 			local UIStroke = Instance.new("UIStroke")
 			UIStroke.Name = "UIStroke"
 			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -359,7 +357,7 @@ do
 			UIStroke.Parent = Icon
 			UIStroke.Thickness = 2
 			UIStroke.Transparency = 0.8
-
+	
 			local UIStroke6 = Instance.new("UIStroke")
 			UIStroke6.Name = "UIStroke"
 			UIStroke6.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -368,16 +366,16 @@ do
 			UIStroke6.Parent = IconInline
 			UIStroke6.Thickness = 2
 			UIStroke6.Transparency = 0.7
-			--
+	
 			local ColorOutline = Instance.new("Frame")
 			ColorOutline.Name = "ColorOutline"
 			ColorOutline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 			ColorOutline.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ColorOutline.Position = UDim2.new(0,30,0,-20)
-			ColorOutline.Size = UDim2.new(0, 184, 0, 182)
+			ColorOutline.Size = UDim2.new(0, 196, 0, 182)
 			ColorOutline.Visible = false
 			ColorOutline.Parent = Icon
-
+	
 			local ColorInline = Instance.new("Frame")
 			ColorInline.Name = "ColorInline"
 			ColorInline.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -385,13 +383,13 @@ do
 			ColorInline.BorderSizePixel = 0
 			ColorInline.Position = UDim2.new(0, 2, 0, 2)
 			ColorInline.Size = UDim2.new(1, -4, 1, -4)
-
+	
 			local Accent = Library:NewInstance("Frame", true)
 			Accent.Name = "Accent"
 			Accent.BackgroundColor3 = Library.Accent
 			Accent.BorderColor3 = Color3.fromRGB(20, 20, 20)
 			Accent.Size = UDim2.new(1, 0, 0, 1)
-
+	
 			local UIGradient = Instance.new("UIGradient")
 			UIGradient.Name = "UIGradient"
 			UIGradient.Color = ColorSequence.new({
@@ -400,9 +398,9 @@ do
 			})
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Accent
-
+	
 			Accent.Parent = ColorInline
-
+	
 			local Title = Instance.new("TextLabel")
 			Title.Name = "Title"
 			Title.FontFace = realfont
@@ -418,21 +416,21 @@ do
 			Title.Position = UDim2.new(0, 4, 0, 3)
 			Title.Size = UDim2.new(1, 0, 0, 16)
 			Title.Parent = ColorInline
-
+	
 			local TextButton = Instance.new("Frame")
 			TextButton.Name = "TextButton"
 			TextButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 			TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			TextButton.Position = UDim2.new(0, 6, 0, 22)
 			TextButton.Size = UDim2.new(0, 150, 0, 150)
-
+	
 			local UIStroke = Instance.new("UIStroke")
 			UIStroke.Name = "UIStroke"
 			UIStroke.LineJoinMode = Enum.LineJoinMode.Miter
 			UIStroke.Thickness = 2
 			UIStroke.Transparency = 0.8
 			UIStroke.Parent = TextButton
-
+	
 			local Val = Instance.new("ImageButton")
 			Val.Name = "Val"
 			Val.Image = "http://www.roblox.com/asset/?id=14684562507"
@@ -443,7 +441,7 @@ do
 			Val.Size = UDim2.new(1, 0, 1, 0)
 			Val.Parent = TextButton
 			Val.ZIndex = 100
-
+	
 			local Sat = Instance.new("ImageButton")
 			Sat.Name = "Sat"
 			Sat.Image = "http://www.roblox.com/asset/?id=14684563800"
@@ -454,7 +452,7 @@ do
 			Sat.Size = UDim2.new(1, 0, 1, 0)
 			Sat.Parent = TextButton
 			Sat.ZIndex = 100
-
+	
 			local Hue = Instance.new("ImageButton")
 			Hue.Name = "Hue"
 			Hue.Image = "http://www.roblox.com/asset/?id=14684557999"
@@ -462,14 +460,14 @@ do
 			Hue.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Hue.Position = UDim2.new(0, 158, 0, 0)
 			Hue.Size = UDim2.new(0, 10, 0, 150)
-
+	
 			local UIStroke1 = Instance.new("UIStroke")
 			UIStroke1.Name = "UIStroke"
 			UIStroke1.LineJoinMode = Enum.LineJoinMode.Miter
 			UIStroke1.Thickness = 2
 			UIStroke1.Transparency = 0.8
 			UIStroke1.Parent = Hue
-
+	
 			local HueSlide = Instance.new("Frame")
 			HueSlide.Name = "HueSlide"
 			HueSlide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -485,32 +483,10 @@ do
 			HueAccent.Position = UDim2.new(0, 1, 0, 1)
 			HueAccent.Size = UDim2.new(1, -2, 1, -2)
 			HueAccent.Parent = HueSlide
-
+	
 			HueSlide.Parent = Hue
-
 			Hue.Parent = TextButton
-
-			local Square = Instance.new("Frame")
-			Square.Name = "Square"
-			Square.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Square.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Square.Size = UDim2.new(0, 4, 0, 4)
-			Square.Parent = TextButton
-			Square.ZIndex = 100
-
-			local SquareAccent = Instance.new("Frame")
-			SquareAccent.Name = "SquareAccent"
-			SquareAccent.BackgroundColor3 = Color3.fromHSV(H, 1, 1)
-			SquareAccent.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			SquareAccent.BorderSizePixel = 0
-			SquareAccent.Position = UDim2.new(0, 1, 0, 1)
-			SquareAccent.Size = UDim2.new(1, -2, 1, -2)
-			SquareAccent.Parent = Square
-
-			TextButton.Parent = ColorInline
-
-			ColorInline.Parent = ColorOutline
-			--
+	
 			local Alpha = Instance.new("ImageButton")
 			Alpha.Name = "Alpha"
 			Alpha.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -520,33 +496,52 @@ do
 			Alpha.Image = "rbxassetid://7987531029"
 			Alpha.ScaleType = Enum.ScaleType.Tile
 			Alpha.TileSize = UDim2.new(0, 10, 0, 10)
-
+	
 			local UIStrokeAlpha = Instance.new("UIStroke")
 			UIStrokeAlpha.Name = "UIStroke"
 			UIStrokeAlpha.LineJoinMode = Enum.LineJoinMode.Miter
 			UIStrokeAlpha.Thickness = 2
 			UIStrokeAlpha.Transparency = 0.8
 			UIStrokeAlpha.Parent = Alpha
-
+	
 			local AlphaSlide = Instance.new("Frame")
 			AlphaSlide.Name = "AlphaSlide"
-			AlphaSlide.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+			AlphaSlide.BackgroundColor3 = default
 			AlphaSlide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			AlphaSlide.Position = UDim2.new(0, -2, 0, (1 - alpha) * 150)
+			AlphaSlide.Position = UDim2.new(0, -2, 0, (1 - defaultalpha) * 150)
 			AlphaSlide.Size = UDim2.new(1, 4, 0, 4)
-
+	
 			local AlphaAccent = Instance.new("Frame")
 			AlphaAccent.Name = "AlphaAccent"
-			AlphaAccent.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+			AlphaAccent.BackgroundColor3 = default
 			AlphaAccent.BorderSizePixel = 0
 			AlphaAccent.Position = UDim2.new(0, 1, 0, 1)
 			AlphaAccent.Size = UDim2.new(1, -2, 1, -2)
 			AlphaAccent.Parent = AlphaSlide
-
+	
 			AlphaSlide.Parent = Alpha
 			Alpha.Parent = TextButton
-
-			-- // Connections
+	
+			local Square = Instance.new("Frame")
+			Square.Name = "Square"
+			Square.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Square.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Square.Size = UDim2.new(0, 4, 0, 4)
+			Square.Parent = TextButton
+			Square.ZIndex = 100
+	
+			local SquareAccent = Instance.new("Frame")
+			SquareAccent.Name = "SquareAccent"
+			SquareAccent.BackgroundColor3 = Color3.fromHSV(H, 1, 1)
+			SquareAccent.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			SquareAccent.BorderSizePixel = 0
+			SquareAccent.Position = UDim2.new(0, 1, 0, 1)
+			SquareAccent.Size = UDim2.new(1, -2, 1, -2)
+			SquareAccent.Parent = Square
+	
+			TextButton.Parent = ColorInline
+			ColorInline.Parent = ColorOutline
+	
 			local mouseover = false
 			local hue, sat, val = default:ToHSV()
 			local hsv = default:ToHSV()
@@ -555,45 +550,41 @@ do
 			local slidingsaturation = false
 			local slidinghue = false
 			local slidingalpha = false
-
+	
 			local function update()
 				local real_pos = game:GetService("UserInputService"):GetMouseLocation()
 				local mouse_position = Vector2.new(real_pos.X - 5, real_pos.Y - 30)
 				local relative_palette = (mouse_position - TextButton.AbsolutePosition)
 				local relative_hue     = (mouse_position - Hue.AbsolutePosition)
-				--
+				local relative_alpha   = (mouse_position - Alpha.AbsolutePosition)
+	
 				if slidingsaturation then
 					sat = math.clamp(1 - relative_palette.X / TextButton.AbsoluteSize.X, 0, 1)
 					val = math.clamp(1 - relative_palette.Y / TextButton.AbsoluteSize.Y, 0, 1)
 				elseif slidinghue then
 					hue = math.clamp(relative_hue.Y / Hue.AbsoluteSize.Y, 0, 1)
+				elseif slidingalpha then
+					alpha = math.clamp(1 - relative_alpha.Y / Alpha.AbsoluteSize.Y, 0, 1)
 				end
-
+	
 				hsv = Color3.fromHSV(hue, sat, val)
 				TextButton.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
 				HueAccent.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
 				Icon.BackgroundColor3 = hsv
 				SquareAccent.BackgroundColor3 = hsv
-
 				HueSlide.Position = UDim2.new(0,-2,math.clamp(hue, 0.005, 0.990),0)
 				Square.Position = UDim2.new(math.clamp(1 - sat, 0.000, 1 - 0.030), 0, math.clamp(1 - val, 0.000, 1 - 0.030), 0)
-				--
-				local relative_alpha = (mouse_position - Alpha.AbsolutePosition)
-				if slidingalpha then
-					alpha = math.clamp(1 - relative_alpha.Y / Alpha.AbsoluteSize.Y, 0, 1)
-				end
-
 				AlphaSlide.Position = UDim2.new(0, -2, math.clamp(1 - alpha, 0.005, 0.990), 0)
 				AlphaSlide.BackgroundColor3 = hsv
 				AlphaAccent.BackgroundColor3 = hsv
-				--
+	
 				if flag then
 					Library.Flags[flag] = Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha)
 				end
-
+	
 				callback(Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha))
 			end
-
+	
 			local function set(color, a)
 				if type(color) == "table" then
 					a = color[4]
@@ -602,14 +593,14 @@ do
 				if type(color) == "string" then
 					color = Color3.fromHex(color)
 				end
-			
+	
 				local oldcolor = hsv
 				local oldalpha = alpha
-			
+	
 				hue, sat, val = color:ToHSV()
 				alpha = a or 1
 				hsv = Color3.fromHSV(hue, sat, val)
-			
+	
 				if hsv ~= oldcolor or alpha ~= oldalpha then
 					Icon.BackgroundColor3 = hsv
 					TextButton.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
@@ -617,117 +608,94 @@ do
 					SquareAccent.BackgroundColor3 = hsv
 					HueSlide.Position = UDim2.new(0,-2,math.clamp(hue, 0.005, 0.990),0)
 					Square.Position = UDim2.new(math.clamp(1 - sat, 0.000, 1 - 0.030), 0, math.clamp(1 - val, 0.000, 1 - 0.030), 0)
-			
-					if AlphaSlide then
-						AlphaSlide.Position = UDim2.new(0, -2, math.clamp(1 - alpha, 0.005, 0.990), 0)
-						AlphaSlide.BackgroundColor3 = hsv
-						if AlphaAccent then
-							AlphaAccent.BackgroundColor3 = hsv
-						end
-					end
-			
+					AlphaSlide.Position = UDim2.new(0, -2, math.clamp(1 - alpha, 0.005, 0.990), 0)
+					AlphaSlide.BackgroundColor3 = hsv
+					AlphaAccent.BackgroundColor3 = hsv
+	
 					if flag then
 						Library.Flags[flag] = Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha)
 					end
-			
+	
 					callback(Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha))
 				end
 			end
-			
+	
 			Flags[flag] = set
-
+	
 			set(default, defaultalpha)
-
+	
 			Sat.InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					slidingsaturation = true
 					update()
 				end
 			end)
-
+	
 			Sat.InputEnded:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					slidingsaturation = false
 					update()
 				end
 			end)
-
+	
 			Hue.InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					slidinghue = true
 					update()
 				end
 			end)
-
+	
 			Hue.InputEnded:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					slidinghue = false
 					update()
 				end
 			end)
-
+	
 			Alpha.InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					slidingalpha = true
 					update()
 				end
 			end)
-			
+	
 			Alpha.InputEnded:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					slidingalpha = false
 					update()
 				end
 			end)
-
+	
 			Library:Connection(game:GetService("UserInputService").InputChanged, function(input)
 				if input.UserInputType == Enum.UserInputType.MouseMovement then
-
-					if slidinghue then
-						update()
-					end
-
-					if slidingsaturation then
-						update()
-					end
+					if slidinghue then update() end
+					if slidingsaturation then update() end
+					if slidingalpha then update() end
 				end
 			end)
-
+	
 			local colorpickertypes = {}
-
+	
 			function colorpickertypes:Set(color, newalpha)
 				set(color, newalpha)
 			end
-
+	
 			Library:Connection(game:GetService("UserInputService").InputBegan, function(Input)
 				if ColorOutline.Visible and Input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if not Library:IsMouseOverFrame(ColorOutline) and not Library:IsMouseOverFrame(Icon) then
 						ColorOutline.Visible = false
-						parent.ZIndex = 1
 					end
 				end
 			end)
-
-			Icon.MouseButton1Down:Connect(function()
-				ColorOutline.Visible = true
-				parent.ZIndex = 5
-
-				if slidinghue then
-					slidinghue = false
-				end
-
-				if slidingsaturation then
-					slidingsaturation = false
-				end
-
-				if slidingalpha then
-					slidingalpha = false
-				end
+	
+			Library:Connection(Icon.MouseButton1Click, function()
+				ColorOutline.Visible = not ColorOutline.Visible
 			end)
-
-			return colorpickertypes, ColorOutline
+	
+			return colorpickertypes
 		end
 	end
+	
 
 	function Library:NewInstance(Inst, Theme)
 		local Obj = Instance.new(Inst)

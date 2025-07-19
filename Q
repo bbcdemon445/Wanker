@@ -324,7 +324,9 @@ do
 	-- // Colorpicker Element
 	do
 		function Library:NewPicker(name, default, defaultalpha, parent, count, flag, callback)
+			-- // Instances
 			local Icon = Instance.new("TextButton", parent)
+			--
 			Icon.Name = "Icon"
 			Icon.AnchorPoint = Vector2.new(0, 0.5)
 			Icon.BackgroundColor3 = default
@@ -335,7 +337,7 @@ do
 			else
 				Icon.Position = UDim2.new(1, - (count * 22) - (count * 4),0.5,0)
 			end
-			Icon.Size = UDim2.new(0, 22, 0, 10)
+			Icon.Size = UDim2.new(0, 24, 0, 14) -- Adjusted size to match the new colorpicker button
 			Icon.Text = ""
 			Icon.AutoButtonColor = false
 	
@@ -366,336 +368,472 @@ do
 			UIStroke6.Parent = IconInline
 			UIStroke6.Thickness = 2
 			UIStroke6.Transparency = 0.7
+			--
 	
-			local ColorOutline = Instance.new("Frame")
-			ColorOutline.Name = "ColorOutline"
-			ColorOutline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-			ColorOutline.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			ColorOutline.Position = UDim2.new(0,30,0,-20)
-			ColorOutline.Size = UDim2.new(0, 196, 0, 182)
-			ColorOutline.Visible = false
-			ColorOutline.Parent = Icon
+			-- Replaced ColorOutline with colorpicker_holder and adjusted properties
+			local colorpicker_holder = Instance.new("Frame")
+			colorpicker_holder.Name = "colorpicker"
+			colorpicker_holder.Position = UDim2.new(0, Icon.AbsolutePosition.X + 1, 0, Icon.AbsolutePosition.Y + 17)
+			colorpicker_holder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			colorpicker_holder.Size = UDim2.new(0, 190, 0, 190) -- Size from the new colorpicker
+			colorpicker_holder.BorderSizePixel = 0
+			colorpicker_holder.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- Keeping old outline color
+			colorpicker_holder.Visible = false
+			colorpicker_holder.ZIndex = 1
+			colorpicker_holder.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui -- Assuming sgui is PlayerGui/CoreGui
 	
-			local ColorInline = Instance.new("Frame")
-			ColorInline.Name = "ColorInline"
-			ColorInline.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			ColorInline.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			ColorInline.BorderSizePixel = 0
-			ColorInline.Position = UDim2.new(0, 2, 0, 2)
-			ColorInline.Size = UDim2.new(1, -4, 1, -4)
 	
-			local Accent = Library:NewInstance("Frame", true)
-			Accent.Name = "Accent"
-			Accent.BackgroundColor3 = Library.Accent
-			Accent.BorderColor3 = Color3.fromRGB(20, 20, 20)
-			Accent.Size = UDim2.new(1, 0, 0, 1)
+			-- window_inline (from the new colorpicker)
+			local window_inline = Instance.new("Frame")
+			window_inline.Name = "window_inline"
+			window_inline.Position = UDim2.new(0, 1, 0, 1)
+			window_inline.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			window_inline.Size = UDim2.new(1, -2, 1, -2)
+			window_inline.BorderSizePixel = 0
+			window_inline.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- Keeping old inline color
+			window_inline.Parent = colorpicker_holder
+	
+			-- window_holder (from the new colorpicker, now the main background)
+			local window_holder = Instance.new("Frame")
+			window_holder.Name = "window_holder"
+			window_holder.Position = UDim2.new(0, 1, 0, 1)
+			window_holder.BorderColor3 = Color3.fromRGB(20, 20, 20) -- Keeping old outline color
+			window_holder.Size = UDim2.new(1, -2, 1, -2)
+			window_holder.BorderSizePixel = 0
+			window_holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Keeping old background color
+			window_holder.Parent = window_inline
 	
 			local UIGradient = Instance.new("UIGradient")
-			UIGradient.Name = "UIGradient"
-			UIGradient.Color = ColorSequence.new({
-				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-				ColorSequenceKeypoint.new(1, Color3.fromRGB(145, 145, 145)),
-			})
+			UIGradient.Name = "_"
 			UIGradient.Rotation = 90
-			UIGradient.Parent = Accent
+			UIGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(41, 41, 55)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 47)),
+			})
+			UIGradient.Parent = window_holder
 	
-			Accent.Parent = ColorInline
-	
-			local Title = Instance.new("TextLabel")
-			Title.Name = "Title"
-			Title.FontFace = realfont
-			Title.Text = name
-			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-			Title.TextSize = Library.FSize
-			Title.TextStrokeTransparency = 0
-			Title.TextXAlignment = Enum.TextXAlignment.Left
-			Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Title.BackgroundTransparency = 1
-			Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Title.BorderSizePixel = 0
-			Title.Position = UDim2.new(0, 4, 0, 3)
-			Title.Size = UDim2.new(1, 0, 0, 16)
-			Title.Parent = ColorInline
-	
-			local TextButton = Instance.new("Frame")
-			TextButton.Name = "TextButton"
-			TextButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-			TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			TextButton.Position = UDim2.new(0, 6, 0, 22)
-			TextButton.Size = UDim2.new(0, 150, 0, 150)
+			local text = Instance.new("TextLabel")
+			text.Parent = window_holder
+			text.FontFace = realfont -- Reusing existing font
+			text.TextColor3 = Color3.fromRGB(255, 255, 255)
+			text.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			text.Text = name
+			text.Name = "text"
+			text.BackgroundTransparency = 1
+			text.Position = UDim2.new(0, 2, 0, 4)
+			text.BorderSizePixel = 0
+			text.AutomaticSize = Enum.AutomaticSize.XY
+			text.TextSize = 12
+			text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	
 			local UIStroke = Instance.new("UIStroke")
-			UIStroke.Name = "UIStroke"
+			UIStroke.Parent = text
 			UIStroke.LineJoinMode = Enum.LineJoinMode.Miter
-			UIStroke.Thickness = 2
-			UIStroke.Transparency = 0.8
-			UIStroke.Parent = TextButton
 	
-			local Val = Instance.new("ImageButton")
-			Val.Name = "Val"
-			Val.Image = "http://www.roblox.com/asset/?id=14684562507"
-			Val.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Val.BackgroundTransparency = 1
-			Val.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Val.BorderSizePixel = 0
-			Val.Size = UDim2.new(1, 0, 1, 0)
-			Val.Parent = TextButton
-			Val.ZIndex = 100
+			local UIPadding = Instance.new("UIPadding")
+			UIPadding.Parent = window_holder
+			UIPadding.Name = "_"
+			UIPadding.PaddingBottom = UDim.new(0, 4)
+			UIPadding.PaddingRight = UDim.new(0, 4)
+			UIPadding.PaddingLeft = UDim.new(0, 4)
 	
-			local Sat = Instance.new("ImageButton")
-			Sat.Name = "Sat"
-			Sat.Image = "http://www.roblox.com/asset/?id=14684563800"
-			Sat.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Sat.BackgroundTransparency = 1
-			Sat.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Sat.BorderSizePixel = 0
-			Sat.Size = UDim2.new(1, 0, 1, 0)
-			Sat.Parent = TextButton
-			Sat.ZIndex = 100
+			-- Main holder for color picker elements
+			local main_holder = Instance.new("Frame")
+			main_holder.Parent = window_holder
+			main_holder.Name = "main_holder"
+			main_holder.Position = UDim2.new(0, 0, 0, 20)
+			main_holder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			main_holder.Size = UDim2.new(1, 0, 1, -20)
+			main_holder.BorderSizePixel = 0
+			main_holder.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 	
-			local Hue = Instance.new("ImageButton")
-			Hue.Name = "Hue"
-			Hue.Image = "http://www.roblox.com/asset/?id=14684557999"
-			Hue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Hue.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Hue.Position = UDim2.new(0, 158, 0, 0)
-			Hue.Size = UDim2.new(0, 10, 0, 150)
+			local main_holder_inline = Instance.new("Frame")
+			main_holder_inline.Parent = main_holder
+			main_holder_inline.Name = "main_holder_inline"
+			main_holder_inline.Position = UDim2.new(0, 1, 0, 1)
+			main_holder_inline.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			main_holder_inline.Size = UDim2.new(1, -2, 1, -2)
+			main_holder_inline.BorderSizePixel = 0
+			main_holder_inline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 	
-			local UIStroke1 = Instance.new("UIStroke")
-			UIStroke1.Name = "UIStroke"
-			UIStroke1.LineJoinMode = Enum.LineJoinMode.Miter
-			UIStroke1.Thickness = 2
-			UIStroke1.Transparency = 0.8
-			UIStroke1.Parent = Hue
+			local main_holder_background = Instance.new("Frame")
+			main_holder_background.Parent = main_holder_inline
+			main_holder_background.Name = "main_holder_background"
+			main_holder_background.Position = UDim2.new(0, 1, 0, 1)
+			main_holder_background.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			main_holder_background.Size = UDim2.new(1, -2, 1, -2)
+			main_holder_background.BorderSizePixel = 0
+			main_holder_background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	
-			local HueSlide = Instance.new("Frame")
-			HueSlide.Name = "HueSlide"
-			HueSlide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			HueSlide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			HueSlide.Position = UDim2.new(0, -2, 0, 0)
-			HueSlide.Size = UDim2.new(1, 4, 0, 4)
-			local H,S,V = default:ToHSV()
-			local HueAccent = Instance.new("Frame")
-			HueAccent.Name = "HueAccent"
-			HueAccent.BackgroundColor3 = Color3.fromHSV(H, 1, 1)
-			HueAccent.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			HueAccent.BorderSizePixel = 0
-			HueAccent.Position = UDim2.new(0, 1, 0, 1)
-			HueAccent.Size = UDim2.new(1, -2, 1, -2)
-			HueAccent.Parent = HueSlide
+			local UIGradient = Instance.new("UIGradient")
+			UIGradient.Parent = main_holder_background
+			UIGradient.Rotation = 90
+			UIGradient.Name = "_"
+			UIGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(41, 41, 55)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 47)),
+			})
 	
-			HueSlide.Parent = Hue
-			Hue.Parent = TextButton
+			local UIPadding = Instance.new("UIPadding")
+			UIPadding.Parent = main_holder_background
+			UIPadding.PaddingTop = UDim.new(0, 4)
+			UIPadding.Name = "_"
+			UIPadding.PaddingBottom = UDim.new(0, 4)
+			UIPadding.PaddingRight = UDim.new(0, 4)
+			UIPadding.PaddingLeft = UDim.new(0, 4)
 	
-			local Alpha = Instance.new("ImageButton")
-			Alpha.Name = "Alpha"
-			Alpha.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Alpha.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Alpha.Position = UDim2.new(0, 170, 0, 0)
-			Alpha.Size = UDim2.new(0, 10, 0, 150)
-			Alpha.Image = "rbxassetid://7987531029"
-			Alpha.ScaleType = Enum.ScaleType.Tile
-			Alpha.TileSize = UDim2.new(0, 10, 0, 10)
+			-- Alpha slider
+			local alpha_slider = Instance.new("TextButton") -- Renamed to avoid conflict with `alpha` variable
+			alpha_slider.Parent = main_holder_background
+			alpha_slider.AnchorPoint = Vector2.new(0, 0.5)
+			alpha_slider.Name = "alpha"
+			alpha_slider.Position = UDim2.new(0, 0, 1, -8)
+			alpha_slider.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			alpha_slider.Size = UDim2.new(1, -20, 0, 14)
+			alpha_slider.BorderSizePixel = 0
+			alpha_slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			alpha_slider.Text = ""
+			alpha_slider.AutoButtonColor = false
 	
-			local UIStrokeAlpha = Instance.new("UIStroke")
-			UIStrokeAlpha.Name = "UIStroke"
-			UIStrokeAlpha.LineJoinMode = Enum.LineJoinMode.Miter
-			UIStrokeAlpha.Thickness = 2
-			UIStrokeAlpha.Transparency = 0.8
-			UIStrokeAlpha.Parent = Alpha
+			local outline = Instance.new("Frame")
+			outline.Parent = alpha_slider
+			outline.Name = "outline"
+			outline.Position = UDim2.new(0, 1, 0, 1)
+			outline.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			outline.Size = UDim2.new(1, -2, 1, -2)
+			outline.BorderSizePixel = 0
+			outline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 	
-			local AlphaSlide = Instance.new("Frame")
-			AlphaSlide.Name = "AlphaSlide"
-			AlphaSlide.BackgroundColor3 = default
-			AlphaSlide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			AlphaSlide.Position = UDim2.new(0, -2, 0, (1 - defaultalpha) * 150)
-			AlphaSlide.Size = UDim2.new(1, 4, 0, 4)
+			local alpha_drag = Instance.new("Frame")
+			alpha_drag.Parent = outline
+			alpha_drag.Name = "alpha_drag"
+			alpha_drag.Position = UDim2.new(0, 1, 0, 1)
+			alpha_drag.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			alpha_drag.Size = UDim2.new(1, -2, 1, -2)
+			alpha_drag.BorderSizePixel = 0
+			alpha_drag.BackgroundColor3 = Color3.fromRGB(0, 221, 255) -- Initial color, will be updated
 	
-			local AlphaAccent = Instance.new("Frame")
-			AlphaAccent.Name = "AlphaAccent"
-			AlphaAccent.BackgroundColor3 = default
-			AlphaAccent.BorderSizePixel = 0
-			AlphaAccent.Position = UDim2.new(0, 1, 0, 1)
-			AlphaAccent.Size = UDim2.new(1, -2, 1, -2)
-			AlphaAccent.Parent = AlphaSlide
+			local alphaind = Instance.new("ImageLabel")
+			alphaind.Parent = alpha_drag
+			alphaind.ScaleType = Enum.ScaleType.Tile
+			alphaind.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			alphaind.Image = "rbxassetid://18274452449"
+			alphaind.BackgroundTransparency = 1
+			alphaind.Name = "alphaind"
+			alphaind.Size = UDim2.new(1, 0, 1, 0)
+			alphaind.TileSize = UDim2.new(0, 6, 0, 6)
+			alphaind.BorderSizePixel = 0
+			alphaind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	
-			AlphaSlide.Parent = Alpha
-			Alpha.Parent = TextButton
+			local UIGradient = Instance.new("UIGradient")
+			UIGradient.Parent = alphaind
+			UIGradient.Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0),
+				NumberSequenceKeypoint.new(1, 1),
+			})
 	
-			local Square = Instance.new("Frame")
-			Square.Name = "Square"
-			Square.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Square.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Square.Size = UDim2.new(0, 4, 0, 4)
-			Square.Parent = TextButton
-			Square.ZIndex = 100
+			local alpha_picker = Instance.new("Frame")
+			alpha_picker.Parent = alpha_drag
+			alpha_picker.Name = "alpha_picker"
+			alpha_picker.BorderMode = Enum.BorderMode.Inset
+			alpha_picker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			alpha_picker.Size = UDim2.new(0, 4, 1, 0)
+			alpha_picker.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	
-			local SquareAccent = Instance.new("Frame")
-			SquareAccent.Name = "SquareAccent"
-			SquareAccent.BackgroundColor3 = Color3.fromHSV(H, 1, 1)
-			SquareAccent.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			SquareAccent.BorderSizePixel = 0
-			SquareAccent.Position = UDim2.new(0, 1, 0, 1)
-			SquareAccent.Size = UDim2.new(1, -2, 1, -2)
-			SquareAccent.Parent = Square
+			-- Hue slider
+			local hue_slider = Instance.new("TextButton") -- Renamed to avoid conflict with `hue` variable
+			hue_slider.Parent = main_holder_background
+			hue_slider.AnchorPoint = Vector2.new(1, 0)
+			hue_slider.Name = "hue"
+			hue_slider.Position = UDim2.new(1, -1, 0, 0)
+			hue_slider.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			hue_slider.Size = UDim2.new(0, 14, 1, -20)
+			hue_slider.BorderSizePixel = 0
+			hue_slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			hue_slider.Text = ""
+			hue_slider.AutoButtonColor = false
 	
-			TextButton.Parent = ColorInline
-			ColorInline.Parent = ColorOutline
+			local outline = Instance.new("Frame")
+			outline.Parent = hue_slider
+			outline.Name = "outline"
+			outline.Position = UDim2.new(0, 1, 0, 1)
+			outline.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			outline.Size = UDim2.new(1, -2, 1, -2)
+			outline.BorderSizePixel = 0
+			outline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 	
-			local mouseover = false
-			local hue, sat, val = default:ToHSV()
-			local hsv = default:ToHSV()
-			local alpha = defaultalpha
-			local oldcolor = hsv
-			local slidingsaturation = false
-			local slidinghue = false
-			local slidingalpha = false
+			local Frame = Instance.new("Frame")
+			Frame.Parent = outline
+			Frame.Position = UDim2.new(0, 1, 0, 1)
+			Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Frame.Size = UDim2.new(1, -2, 1, -2)
+			Frame.BorderSizePixel = 0
+			Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	
-			local function update()
-				local real_pos = game:GetService("UserInputService"):GetMouseLocation()
-				local mouse_position = Vector2.new(real_pos.X - 5, real_pos.Y - 30)
-				local relative_palette = (mouse_position - TextButton.AbsolutePosition)
-				local relative_hue     = (mouse_position - Hue.AbsolutePosition)
-				local relative_alpha   = (mouse_position - Alpha.AbsolutePosition)
+			local UIGradient = Instance.new("UIGradient")
+			UIGradient.Parent = Frame
+			UIGradient.Rotation = 270
+			UIGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+				ColorSequenceKeypoint.new(0.17, Color3.fromRGB(255, 255, 0)),
+				ColorSequenceKeypoint.new(0.33, Color3.fromRGB(0, 255, 0)),
+				ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)),
+				ColorSequenceKeypoint.new(0.67, Color3.fromRGB(0, 0, 255)),
+				ColorSequenceKeypoint.new(0.83, Color3.fromRGB(255, 0, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0)),
+			})
 	
-				if slidingsaturation then
-					sat = math.clamp(1 - relative_palette.X / TextButton.AbsoluteSize.X, 0, 1)
-					val = math.clamp(1 - relative_palette.Y / TextButton.AbsoluteSize.Y, 0, 1)
-				elseif slidinghue then
-					hue = math.clamp(relative_hue.Y / Hue.AbsoluteSize.Y, 0, 1)
-				elseif slidingalpha then
-					alpha = math.clamp(1 - relative_alpha.Y / Alpha.AbsoluteSize.Y, 0, 1)
-				end
+			local hue_picker = Instance.new("Frame")
+			hue_picker.Parent = Frame
+			hue_picker.Name = "hue_picker"
+			hue_picker.BorderMode = Enum.BorderMode.Inset
+			hue_picker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			hue_picker.Size = UDim2.new(1, 0, 0, 4)
+			hue_picker.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	
-				hsv = Color3.fromHSV(hue, sat, val)
-				TextButton.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
-				HueAccent.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
-				Icon.BackgroundColor3 = hsv
-				SquareAccent.BackgroundColor3 = hsv
-				HueSlide.Position = UDim2.new(0,-2,math.clamp(hue, 0.005, 0.990),0)
-				Square.Position = UDim2.new(math.clamp(1 - sat, 0.000, 1 - 0.030), 0, math.clamp(1 - val, 0.000, 1 - 0.030), 0)
-				AlphaSlide.Position = UDim2.new(0, -2, math.clamp(1 - alpha, 0.005, 0.990), 0)
-				AlphaSlide.BackgroundColor3 = hsv
-				AlphaAccent.BackgroundColor3 = hsv
+			-- Visualize color
+			local visualize = Instance.new("Frame")
+			visualize.Parent = main_holder_background
+			visualize.AnchorPoint = Vector2.new(1, 1)
+			visualize.Name = "visualize"
+			visualize.Position = UDim2.new(1, -1, 1, -1)
+			visualize.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			visualize.Size = UDim2.new(0, 14, 0, 14)
+			visualize.BorderSizePixel = 0
+			visualize.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 	
-				if flag then
-					Library.Flags[flag] = Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha)
-				end
+			local outline = Instance.new("Frame")
+			outline.Parent = visualize
+			outline.Size = UDim2.new(1, -2, 1, -2)
+			outline.Name = "outline"
+			outline.Active = true
+			outline.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			outline.Position = UDim2.new(0, 1, 0, 1)
+			outline.BorderSizePixel = 0
+			outline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 	
-				callback(Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha))
-			end
+			local visualize_color = Instance.new("Frame") -- Renamed to avoid conflict
+			visualize_color.Parent = outline
+			visualize_color.Size = UDim2.new(1, -2, 1, -2)
+			visualize_color.Name = "visualize"
+			visualize_color.Active = true
+			visualize_color.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			visualize_color.Position = UDim2.new(0, 1, 0, 1)
+			visualize_color.BorderSizePixel = 0
+			visualize_color.BackgroundColor3 = Color3.fromRGB(0, 221, 255)
 	
-			local function set(color, a)
-				if type(color) == "table" then
-					a = color[4]
-					color = Color3.fromHSV(color[1], color[2], color[3])
-				end
-				if type(color) == "string" then
-					color = Color3.fromHex(color)
-				end
+			-- Saturation and Value picker
+			local satval_picker = Instance.new("Frame")
+			satval_picker.Parent = main_holder_background
+			satval_picker.Name = "satval_picker"
+			satval_picker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			satval_picker.Size = UDim2.new(1, -20, 1, -20)
+			satval_picker.BorderSizePixel = 0
+			satval_picker.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 	
-				local oldcolor = hsv
-				local oldalpha = alpha
+			local outline = Instance.new("Frame")
+			outline.Parent = satval_picker
+			outline.Name = "outline"
+			outline.Position = UDim2.new(0, 1, 0, 1)
+			outline.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			outline.Size = UDim2.new(1, -2, 1, -2)
+			outline.BorderSizePixel = 0
+			outline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 	
-				hue, sat, val = color:ToHSV()
-				alpha = a or 1
-				hsv = Color3.fromHSV(hue, sat, val)
+			local colorpicker_main = Instance.new("Frame") -- Renamed from 'colorpicker'
+			colorpicker_main.Parent = outline
+			colorpicker_main.Name = "colorpicker"
+			colorpicker_main.Position = UDim2.new(0, 1, 0, 1)
+			colorpicker_main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			colorpicker_main.Size = UDim2.new(1, -2, 1, -2)
+			colorpicker_main.BorderSizePixel = 0
+			colorpicker_main.BackgroundColor3 = Color3.fromRGB(0, 221, 255) -- Will be updated
 	
-				if hsv ~= oldcolor or alpha ~= oldalpha then
-					Icon.BackgroundColor3 = hsv
-					TextButton.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
-					HueAccent.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
-					SquareAccent.BackgroundColor3 = hsv
-					HueSlide.Position = UDim2.new(0,-2,math.clamp(hue, 0.005, 0.990),0)
-					Square.Position = UDim2.new(math.clamp(1 - sat, 0.000, 1 - 0.030), 0, math.clamp(1 - val, 0.000, 1 - 0.030), 0)
-					AlphaSlide.Position = UDim2.new(0, -2, math.clamp(1 - alpha, 0.005, 0.990), 0)
-					AlphaSlide.BackgroundColor3 = hsv
-					AlphaAccent.BackgroundColor3 = hsv
+			local sat_button = Instance.new("TextButton") -- Renamed to avoid conflict with `sat` variable
+			sat_button.Parent = colorpicker_main
+			sat_button.Name = "sat"
+			sat_button.Size = UDim2.new(1, 0, 1, 0)
+			sat_button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			sat_button.ZIndex = 2
+			sat_button.BorderSizePixel = 0
+			sat_button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			sat_button.Text = ""
+			sat_button.AutoButtonColor = false
 	
-					if flag then
-						Library.Flags[flag] = Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha)
+			local UIGradient = Instance.new("UIGradient")
+			UIGradient.Parent = sat_button
+			UIGradient.Rotation = 270
+			UIGradient.Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0),
+				NumberSequenceKeypoint.new(1, 1),
+			})
+			UIGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+			})
+	
+			local val_button = Instance.new("TextButton") -- Renamed to avoid conflict with `val` variable
+			val_button.Parent = colorpicker_main
+			val_button.Name = "val"
+			val_button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			val_button.Size = UDim2.new(1, 0, 1, 0)
+			val_button.BorderSizePixel = 0
+			val_button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			val_button.Text = ""
+			val_button.AutoButtonColor = false
+	
+			local UIGradient = Instance.new("UIGradient")
+			UIGradient.Parent = val_button
+			UIGradient.Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0),
+				NumberSequenceKeypoint.new(1, 1),
+			})
+	
+			local satval_picker_REAL = Instance.new("Frame")
+			satval_picker_REAL.Parent = colorpicker_main
+			satval_picker_REAL.Name = "satval_picker_REAL"
+			satval_picker_REAL.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			satval_picker_REAL.Size = UDim2.new(0, 2, 0, 2)
+			satval_picker_REAL.BorderSizePixel = 1
+			satval_picker_REAL.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			satval_picker_REAL.ZIndex = 3
+			--
+	
+			-- // Connections
+			local h, s, v = default:ToHSV()
+			local a = defaultalpha or 1
+	
+			local dragging_sat = false
+			local dragging_hue = false
+			local dragging_alpha = false
+	
+			local cfg = {
+				name = name,
+				flag = flag,
+				color = default,
+				alpha = defaultalpha or 1,
+				callback = callback or function() end,
+				right_holder = parent, -- Reusing existing parent
+			}
+	
+			function cfg.set_visible(bool)
+				colorpicker_holder.Visible = bool
+	
+				if bool then
+					if Library.current_element_open and Library.current_element_open ~= cfg then
+						Library.current_element_open.set_visible(false)
+						Library.current_element_open.open = false
 					end
 	
-					callback(Library:RGBA(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha))
+					Library.current_element_open = cfg
+					colorpicker_holder.Position = UDim2.new(0, Icon.AbsolutePosition.X + 1, 0, Icon.AbsolutePosition.Y + 17)
 				end
 			end
 	
-			Flags[flag] = set
-	
-			set(default, defaultalpha)
-	
-			Sat.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					slidingsaturation = true
-					update()
-				end
+			Icon.MouseButton1Click:Connect(function()
+				cfg.open = not cfg.open
+				cfg.set_visible(cfg.open)
 			end)
 	
-			Sat.InputEnded:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					slidingsaturation = false
-					update()
+			function cfg.set(color_param, alpha_param) -- Renamed parameters to avoid shadowing
+				if color_param then
+					h, s, v = color_param:ToHSV()
 				end
-			end)
 	
-			Hue.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					slidinghue = true
-					update()
+				if alpha_param then
+					a = alpha_param
 				end
-			end)
 	
-			Hue.InputEnded:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					slidinghue = false
-					update()
-				end
-			end)
+				local hsv_position = Color3.fromHSV(h, s, v)
+				local Color = Color3.fromHSV(h, s, v)
 	
-			Alpha.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					slidingalpha = true
-					update()
-				end
-			end)
+				local value_for_hue_picker = 1 - h -- For hue picker position
+				local hue_offset = (value_for_hue_picker < 1) and 0 or -4
+				hue_picker.Position = UDim2.new(0, 0, value_for_hue_picker, hue_offset)
 	
-			Alpha.InputEnded:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					slidingalpha = false
-					update()
-				end
-			end)
+				local alpha_offset = (a < 1) and 0 or -4
+				alpha_picker.Position = UDim2.new(a, alpha_offset, 0, 0)
 	
-			Library:Connection(game:GetService("UserInputService").InputChanged, function(input)
-				if input.UserInputType == Enum.UserInputType.MouseMovement then
-					if slidinghue then update() end
-					if slidingsaturation then update() end
-					if slidingalpha then update() end
-				end
-			end)
+				alpha_drag.BackgroundColor3 = Color3.fromHSV(h, s, v)
 	
-			local colorpickertypes = {}
+				visualize_color.BackgroundColor3 = Color
+				Icon.BackgroundColor3 = Color -- This is the button icon color
 	
-			function colorpickertypes:Set(color, newalpha)
-				set(color, newalpha)
+				colorpicker_main.BackgroundColor3 = Color3.fromHSV(h, 1, 1)
+	
+				cfg.color = Color
+				cfg.alpha = a
+	
+				local s_offset = (s < 1) and 0 or -3
+				local v_offset = (1 - v < 1) and 0 or -3
+				satval_picker_REAL.Position = UDim2.new(s, s_offset, 1 - v, v_offset)
+	
+				flags[cfg.flag] = {}
+				flags[cfg.flag]["Color"] = Color
+				flags[cfg.flag]["Transparency"] = a
+	
+				cfg.callback(Color, a)
 			end
 	
-			Library:Connection(game:GetService("UserInputService").InputBegan, function(Input)
-				if ColorOutline.Visible and Input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if not Library:IsMouseOverFrame(ColorOutline) and not Library:IsMouseOverFrame(Icon) then
-						ColorOutline.Visible = false
-					end
+			function cfg.update_color()
+				local mouse = game:GetService("UserInputService"):GetMouseLocation()
+				local gui_offset = 0 -- Assuming no global offset for GUI if parent is PlayerGui/CoreGui directly
+	
+				if dragging_sat then
+					s = math.clamp((Vector2.new(mouse.X, mouse.Y - gui_offset) - val_button.AbsolutePosition).X / val_button.AbsoluteSize.X, 0, 1)
+					v = 1 - math.clamp((Vector2.new(mouse.X, mouse.Y - gui_offset) - sat_button.AbsolutePosition).Y / sat_button.AbsoluteSize.Y, 0, 1)
+				elseif dragging_hue then
+					h = math.clamp(
+						1 - (Vector2.new(mouse.X, mouse.Y - gui_offset) - hue_slider.AbsolutePosition).Y / hue_slider.AbsoluteSize.Y,
+						0,
+						1
+					)
+				elseif dragging_alpha then
+					a = math.clamp(
+						(Vector2.new(mouse.X, mouse.Y - gui_offset) - alpha_slider.AbsolutePosition).X / alpha_slider.AbsoluteSize.X,
+						0,
+						1
+					)
+				end
+	
+				cfg.set(nil, nil)
+			end
+	
+			alpha_slider.MouseButton1Down:Connect(function()
+				dragging_alpha = true
+			end)
+	
+			hue_slider.MouseButton1Down:Connect(function()
+				dragging_hue = true
+			end)
+	
+			sat_button.MouseButton1Down:Connect(function()
+				dragging_sat = true
+			end)
+	
+			game:GetService("UserInputService").InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					dragging_sat = false
+					dragging_hue = false
+					dragging_alpha = false
 				end
 			end)
 	
-			Library:Connection(Icon.MouseButton1Click, function()
-				ColorOutline.Visible = not ColorOutline.Visible
+			game:GetService("UserInputService").InputChanged:Connect(function(input)
+				if
+					(dragging_sat or dragging_hue or dragging_alpha)
+					and input.UserInputType == Enum.UserInputType.MouseMovement
+				then
+					cfg.update_color()
+				end
 			end)
 	
-			return colorpickertypes
+			-- Initial setup
+			cfg.set(cfg.color, cfg.alpha)
+	
+			return cfg, colorpicker_holder
 		end
 	end
-	
 
 	function Library:NewInstance(Inst, Theme)
 		local Obj = Instance.new(Inst)
@@ -1877,21 +2015,21 @@ do
 					),
 				}
 				-- // Functions
-				Toggle.Colorpickers = Toggle.Colorpickers + 1
-				local colorpickertypes = Library:NewPicker(
+				Toggle.Colorpickers = (Toggle.Colorpickers or 0) + 1
+				local colorpicker_cfg, colorpicker_ui_holder = Library:NewPicker(
 					Colorpicker.Name,
 					Colorpicker.State,
 					Colorpicker.Alpha,
-					NewToggle,
+					NewToggle, -- This is for the Icon, not the actual picker UI
 					Toggle.Colorpickers,
 					Colorpicker.Flag,
 					Colorpicker.Callback
 				)
-
-				function Colorpicker:Set(color)
-					colorpickertypes:set(color)
+		
+				function Colorpicker:Set(color, alpha)
+					colorpicker_cfg.set(color, alpha)
 				end
-
+		
 				-- // Returning
 				return Colorpicker
 			end
@@ -3260,7 +3398,7 @@ do
 						or Properties.Pointer
 						or Library.NextFlag()
 				),
-				Colorpickers = 0,
+				Colorpickers = (self.Colorpickers or 0), -- Initialize if nil, specific to this section instance
 			}
 			--
 			local NewKey = Instance.new("Frame")
@@ -3271,7 +3409,7 @@ do
 			NewKey.BorderSizePixel = 0
 			NewKey.Size = UDim2.new(1, 0, 0, 8)
 			NewKey.Parent = Colorpicker.Section.Elements.SectionContent
-
+	
 			local Title = Instance.new("TextLabel")
 			Title.Name = "Title"
 			Title.FontFace = realfont
@@ -3286,23 +3424,30 @@ do
 			Title.BorderSizePixel = 0
 			Title.Size = UDim2.new(1, 0, 1, 0)
 			Title.Parent = NewKey
-
+	
 			-- // Functions
 			Colorpicker.Colorpickers = Colorpicker.Colorpickers + 1
-			local colorpickertypes = Library:NewPicker(
+			local colorpicker_cfg, colorpicker_ui_holder = Library:NewPicker( -- Capture both return values
 				Colorpicker.Name,
 				Colorpicker.State,
 				Colorpicker.Alpha,
-				NewKey,
+				NewKey, -- This is for the Icon, not the actual picker UI
 				Colorpicker.Colorpickers,
 				Colorpicker.Flag,
 				Colorpicker.Callback
 			)
-
-			function Colorpicker:Set(color)
-				colorpickertypes:set(color, false, true)
+	
+			function Colorpicker:Set(color, alpha) -- Added alpha parameter
+				-- The NewPicker's 'set' function now expects color and alpha as separate arguments.
+				-- The 'colorpicker_cfg' object holds the 'set' method.
+				colorpicker_cfg.set(color, alpha)
 			end
-
+	
+			-- This nested function for a new Colorpicker inside an existing Colorpicker
+			-- seems like a potential recursion or unintended design.
+			-- If it's meant to create another independent colorpicker instance, it should be adjusted accordingly.
+			-- For now, I'm assuming it's a separate utility for creating *another* colorpicker,
+			-- so I'll adjust its call to Library:NewPicker and its 'Set' function as well.
 			function Colorpicker:Colorpicker(Properties)
 				local Properties = Properties or {}
 				local NewColorpicker = {
@@ -3340,24 +3485,24 @@ do
 				}
 				-- // Functions
 				Colorpicker.Colorpickers = Colorpicker.Colorpickers + 1
-				local Newcolorpickertypes = Library:NewPicker(
+				local Newcolorpicker_cfg, Newcolorpicker_ui_holder = Library:NewPicker( -- Capture both return values
 					NewColorpicker.Name,
 					NewColorpicker.State,
 					NewColorpicker.Alpha,
-					NewKey,
+					NewKey, -- Parent for the icon of this nested colorpicker
 					Colorpicker.Colorpickers,
 					NewColorpicker.Flag,
 					NewColorpicker.Callback
 				)
-
-				function NewColorpicker:Set(color)
-					Newcolorpickertypes:Set(color)
+	
+				function NewColorpicker:Set(color, alpha) -- Added alpha parameter
+					Newcolorpicker_cfg.set(color, alpha)
 				end
-
+	
 				-- // Returning
 				return NewColorpicker
 			end
-
+	
 			-- // Returning
 			return Colorpicker
 		end

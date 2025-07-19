@@ -337,7 +337,7 @@ do
 			else
 				Icon.Position = UDim2.new(1, - (count * 22) - (count * 4),0.5,0)
 			end
-			Icon.Size = UDim2.new(0, 28, 0, 10)
+			Icon.Size = UDim2.new(0, 22, 0, 10)
 			Icon.Text = ""
 			Icon.AutoButtonColor = false
 
@@ -374,7 +374,7 @@ do
 			ColorOutline.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 			ColorOutline.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ColorOutline.Position = UDim2.new(0,30,0,-20)
-			ColorOutline.Size = UDim2.new(0, 184, 0, 182)
+			ColorOutline.Size = UDim2.new(0, 184, 0, 202)
 			ColorOutline.Visible = false
 			ColorOutline.Parent = Icon
 
@@ -510,6 +510,87 @@ do
 			TextButton.Parent = ColorInline
 
 			ColorInline.Parent = ColorOutline
+			--
+			local Val2 = Instance.new("ImageButton")
+			Val2.Name = "Val2"
+			Val2.Image = "http://www.roblox.com/asset/?id=14684562507"
+			Val2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Val2.BackgroundTransparency = 1
+			Val2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Val2.BorderSizePixel = 0
+			Val2.Size = UDim2.new(1, 0, 1, 0)
+			Val2.Position = UDim2.new(0, 20, 0, 0) -- Moved 20px
+			Val2.ZIndex = 100
+			Val2.Parent = TextButton2
+
+			local Sat2 = Instance.new("ImageButton")
+			Sat2.Name = "Sat2"
+			Sat2.Image = "http://www.roblox.com/asset/?id=14684563800"
+			Sat2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Sat2.BackgroundTransparency = 1
+			Sat2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Sat2.BorderSizePixel = 0
+			Sat2.Size = UDim2.new(1, 0, 1, 0)
+			Sat2.Position = UDim2.new(0, 20, 0, 0) -- Moved 20px
+			Sat2.ZIndex = 100
+			Sat2.Parent = TextButton2
+
+			local Hue2 = Instance.new("ImageButton")
+			Hue2.Name = "Hue2"
+			Hue2.Image = "http://www.roblox.com/asset/?id=14684557999"
+			Hue2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Hue2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Hue2.Position = UDim2.new(0, 178, 0, 0) -- Original was 158 → now +20px
+			Hue2.Size = UDim2.new(0, 10, 0, 150)
+
+			local UIStroke2 = Instance.new("UIStroke")
+			UIStroke2.Name = "UIStroke2"
+			UIStroke2.LineJoinMode = Enum.LineJoinMode.Miter
+			UIStroke2.Thickness = 2
+			UIStroke2.Transparency = 0.8
+			UIStroke2.Parent = Hue2
+
+			local HueSlide2 = Instance.new("Frame")
+			HueSlide2.Name = "HueSlide2"
+			HueSlide2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			HueSlide2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			HueSlide2.Position = UDim2.new(0, -2, 0, 0)
+			HueSlide2.Size = UDim2.new(1, 4, 0, 4)
+
+			local H, S, V = default:ToHSV()
+
+			local HueAccent2 = Instance.new("Frame")
+			HueAccent2.Name = "HueAccent2"
+			HueAccent2.BackgroundColor3 = Color3.fromHSV(H, 1, 1)
+			HueAccent2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			HueAccent2.BorderSizePixel = 0
+			HueAccent2.Position = UDim2.new(0, 1, 0, 1)
+			HueAccent2.Size = UDim2.new(1, -2, 1, -2)
+			HueAccent2.Parent = HueSlide2
+
+			HueSlide2.Parent = Hue2
+			Hue2.Parent = TextButton2
+
+			local Square2 = Instance.new("Frame")
+			Square2.Name = "Square2"
+			Square2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Square2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Square2.Size = UDim2.new(0, 4, 0, 4)
+			Square2.Position = UDim2.new(0, 20, 0, 0) -- Moved 20px
+			Square2.ZIndex = 100
+			Square2.Parent = TextButton2
+
+			local SquareAccent2 = Instance.new("Frame")
+			SquareAccent2.Name = "SquareAccent2"
+			SquareAccent2.BackgroundColor3 = Color3.fromHSV(H, 1, 1)
+			SquareAccent2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			SquareAccent2.BorderSizePixel = 0
+			SquareAccent2.Position = UDim2.new(0, 1, 0, 1)
+			SquareAccent2.Size = UDim2.new(1, -2, 1, -2)
+			SquareAccent2.Parent = Square2
+
+			TextButton2.Parent = ColorInline2
+			ColorInline2.Parent = ColorOutline2
 
 			-- // Connections
 			local mouseover = false

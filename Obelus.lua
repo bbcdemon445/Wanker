@@ -1,3 +1,4 @@
+-- Variables
 local uis = game:GetService("UserInputService")
 local players = game:GetService("Players")
 local ws = game:GetService("Workspace")
@@ -59,7 +60,7 @@ local concat = table.concat
 
 -- Library init
 if getgenv().library then
-	library:unloadMenu()
+	--library:unloadMenu() i'm pretty sure this breaks it for some reason?
 end
 
 getgenv().library = {
@@ -3684,6 +3685,6 @@ function library:addButton(options)
 		Name = "",
 		PaddingLeft = dim(0, 1),
 	})
+end
 
 return library
-end

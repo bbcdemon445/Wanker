@@ -3571,23 +3571,7 @@ do
 			Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Frame.Position = UDim2.new(0, 0, 1, -18)
 			Frame.Size = UDim2.new(1, 0, 0, 18)
-		
-			local Gradient = Instance.new("UIGradient")
-			Gradient.Name = "Gradient"
-			Gradient.Color = ColorSequence.new({
-				ColorSequenceKeypoint.new(0, Color3.fromRGB(47, 47, 47)),
-				ColorSequenceKeypoint.new(1, Color3.fromRGB(26, 26, 26)),
-			})
-			Gradient.Rotation = 90
-			Gradient.Parent = Frame
-		
-			local UIStroke = Instance.new("UIStroke")
-			UIStroke.Name = "UIStroke"
-			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-			UIStroke.LineJoinMode = Enum.LineJoinMode.Miter
-			UIStroke.Thickness = 2
-			UIStroke.Transparency = 0.8
-			UIStroke.Parent = Frame
+			Frame.Transparency = 1
 		
 			local Value = Instance.new("TextLabel")
 			Value.Name = "Value"

@@ -3543,6 +3543,71 @@ do
 			return Button
 		end
 		--
+		function Sections:Label(Properties)
+			local Properties = Properties or {}
+			local Label = {
+				Window = self.Window,
+				Page = self.Page,
+				Section = self,
+				Name = Properties.Name or "label",
+			}
+		
+			local NewLabel = Instance.new("TextLabel")
+			NewLabel.Name = "NewLabel"
+			NewLabel.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
+			NewLabel.Text = ""
+			NewLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+			NewLabel.TextSize = 14
+			NewLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			NewLabel.BackgroundTransparency = 1
+			NewLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			NewLabel.BorderSizePixel = 0
+			NewLabel.Size = UDim2.new(1, 0, 0, 18)
+			NewLabel.Parent = Label.Section.Elements.SectionContent
+		
+			local Frame = Instance.new("Frame")
+			Frame.Name = "LabelFrame"
+			Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Frame.Position = UDim2.new(0, 0, 1, -18)
+			Frame.Size = UDim2.new(1, 0, 0, 18)
+		
+			local Gradient = Instance.new("UIGradient")
+			Gradient.Name = "Gradient"
+			Gradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(47, 47, 47)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(26, 26, 26)),
+			})
+			Gradient.Rotation = 90
+			Gradient.Parent = Frame
+		
+			local UIStroke = Instance.new("UIStroke")
+			UIStroke.Name = "UIStroke"
+			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			UIStroke.LineJoinMode = Enum.LineJoinMode.Miter
+			UIStroke.Thickness = 2
+			UIStroke.Transparency = 0.8
+			UIStroke.Parent = Frame
+		
+			local Value = Instance.new("TextLabel")
+			Value.Name = "Value"
+			Value.FontFace = realfont
+			Value.Text = Label.Name
+			Value.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Value.TextSize = Library.FSize
+			Value.TextStrokeTransparency = 0
+			Value.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Value.BackgroundTransparency = 1
+			Value.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Value.BorderSizePixel = 0
+			Value.Size = UDim2.new(1, 0, 1, 0)
+			Value.Parent = Frame
+		
+			Frame.Parent = NewLabel
+		
+			return Label
+		end
+		--
 		function Pages:PlayerList(Properties)
 			if not Properties then
 				Properties = {}
